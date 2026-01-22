@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import personalTravelData from '@/data/personal_travel.json';
 import conferenceTravelData from '@/data/conference_travel.json';
 import internshipTravelData from '@/data/internship_travel.json';
@@ -15,23 +16,8 @@ const MapComponent = dynamic(() => import('@/components/TravelMap'), {
 
 export default function TravelsPage() {
   const [activeFilter, setActiveFilter] = useState('all');
-  const [filteredData, setFilteredData] = useState([]);
   
-  // Calculate statistics
-  const cityCount = Array.from(new Set([
-    ...personalTravelData.travels.map(item => item.city),
-    ...conferenceTravelData.travels.map(item => item.city),
-    ...internshipTravelData.travels.map(item => item.city)
-  ])).length;
-  
-  const countryCount = Array.from(new Set([
-    ...personalTravelData.travels.map(item => item.city.split(', ')[1]),
-    ...conferenceTravelData.travels.map(item => item.city.split(', ')[1]),
-    ...internshipTravelData.travels.map(item => item.city.split(', ')[1])
-  ].filter(Boolean))).length;
-  
-  useEffect(() => {
-    // Combine and format travel data based on active filter
+  const filteredData = useMemo(() => {
     let combinedData = [];
     
     if (activeFilter === 'all' || activeFilter === 'personal') {
@@ -64,12 +50,43 @@ export default function TravelsPage() {
       ];
     }
     
-    setFilteredData(combinedData);
+    return combinedData;
   }, [activeFilter]);
+
+  // Calculate statistics based on filtered data
+  const cityCount = useMemo(() => {
+    return Array.from(new Set(filteredData.map(item => item.city))).length;
+  }, [filteredData]);
+  
+  const countryCount = useMemo(() => {
+    const usStates = new Set([
+      'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 
+      'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 
+      'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 
+      'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 
+      'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY', 'DC'
+    ]);
+
+    return Array.from(new Set(
+      filteredData.map(item => {
+        const parts = item.city.split(', ');
+        const region = parts[1] ? parts[1].trim() : '';
+        // Map US states to USA
+        return usStates.has(region) ? 'USA' : region;
+      }).filter(Boolean)
+    )).length;
+  }, [filteredData]);
 
   return (
     <div className="travels-container">
       <div className="travels-header">
+        <Link href="/" className="travel-back-button" aria-label="Back to home">
+          <svg viewBox="0 0 24 24" fill="currentColor" className="travel-back-icon">
+            <path d="M15.5 5v14l-11-7z" />
+          </svg>
+          <span className="travel-back-text">Back</span>
+        </Link>
+
         <div className="travel-stats-top">
           <span className="stat-item"><strong>{cityCount}</strong> Cities</span>
           <span className="stat-separator">•</span>

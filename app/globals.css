@@ -1,14 +1,50 @@
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 240, 240, 240;
+  /* Narrative Theme Colors */
+  --bg-parchment: #f7f4e9;
+  --bg-soft-cream: #faf8f3;
+  --text-ink: #2c2416;
+  --text-warm-gray: #6b5b47;
+  --text-light: #8a7b65;
+  --highlight-sepia: #8b5a3c;
+  --highlight-ink-blue: #4a5568;
+  --accent-burgundy: #9d4444;
+  --accent-amber: #d69e2e;
+  --accent-forest: #38a169;
+  --border-warm: rgba(139, 90, 60, 0.2);
+  --shadow-warm: rgba(44, 36, 22, 0.1);
+  
+  /* Typography Variables */
+  --font-handwritten: 'Patrick Hand', 'Comic Sans MS', cursive;
+  --font-title: 'Fredoka One', 'Patrick Hand', cursive;
+  --font-serif: 'IBM Plex Serif', Georgia, serif;
+  --font-body: 'IBM Plex Serif', Georgia, serif;
+  
+  /* Legacy variables for compatibility */
+  --foreground-rgb: 44, 36, 22;
+  --background-start-rgb: 247, 244, 233;
+  --background-end-rgb: 250, 248, 243;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 18, 18, 18;
-    --background-end-rgb: 25, 25, 25;
+    /* Dark Narrative Theme */
+    --bg-parchment: #1a1612;
+    --bg-soft-cream: #1f1b16;
+    --text-ink: #e8e2d4;
+    --text-warm-gray: #b8a998;
+    --text-light: #9a8b7a;
+    --highlight-sepia: #c4845a;
+    --highlight-ink-blue: #7a8ca8;
+    --accent-burgundy: #c85a5a;
+    --accent-amber: #e6b84d;
+    --accent-forest: #56c978;
+    --border-warm: rgba(196, 132, 90, 0.3);
+    --shadow-warm: rgba(232, 226, 212, 0.1);
+    
+    /* Legacy variables */
+    --foreground-rgb: 232, 226, 212;
+    --background-start-rgb: 26, 22, 18;
+    --background-end-rgb: 31, 27, 22;
   }
 }
 
@@ -26,15 +62,33 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: var(--text-ink);
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      135deg,
+      var(--bg-parchment) 0%,
+      var(--bg-soft-cream) 100%
+    );
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Add subtle paper texture */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 1px 1px, var(--border-warm) 1px, transparent 0);
+  background-size: 20px 20px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
 }
 
 a {
@@ -42,25 +96,85 @@ a {
   text-decoration: none;
 }
 
-.layout-container {
-  display: flex;
-  padding-top: 100px; /* Space for navbar */
+/* 12-Column Grid Layout System */
+.layout-wrapper {
+  /* Removed fixed max-width to allow fluid expansion */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
   min-height: 100vh;
 }
 
-main.main-content {
-  flex: 1;
-  margin-left: 400px; /* Width of sidebar */
-  padding: 2rem 2rem 2rem 2rem;
-  padding-top: 0;
-  min-height: 100vh;
+@media (min-width: 768px) {
+  .layout-wrapper {
+    padding: 0 9%;
+  }
+}
+
+@media (min-width: 2000px) {
+  .layout-wrapper {
+    max-width: 2000px;
+  }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile default */
+  /* Use proportional gap instead of fixed rem to scale with screen width */
+  gap: 2vw; 
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  position: relative;
+}
+
+/* Desktop Grid Configuration */
+@media (min-width: 1024px) {
+  .grid-container {
+    /* Fixed sidebars (330px), Fluid center (1fr) */
+    grid-template-columns: 330px 1fr 330px;
+  }
+  
+  .col-sidebar-left {
+    grid-column: 1;
+    position: relative; /* Context for sticky child */
+  }
+  
+  .col-main {
+    grid-column: 2;
+    min-height: 80vh;
+    max-width: 1000px;
+    margin-inline: auto;
+    width: 100%;
+    padding: 0 2rem;
+  }
+  
+  .col-sidebar-right {
+    grid-column: 3;
+    position: relative; /* Context for sticky child */
+  }
+}
+
+/* Tablet adjustments if needed */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .grid-container {
+    grid-template-columns: 300px 1fr;
+  }
+  .col-sidebar-left { grid-column: 1; }
+  .col-main { grid-column: 2; }
+  .col-sidebar-right { 
+    grid-column: span 2; /* Push right sidebar to bottom on tablet */
+    margin-top: 2rem;
+  }
+}
+
+.main-content {
+  width: 100%;
 }
 
 .home-container {
-  max-width: 900px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
-  min-height: 100vh;
 }
 
 /* Filter and Tag Button Styles */
@@ -83,35 +197,37 @@ main.main-content {
 
 .filter-button,
 .tag-button {
-  background-color: rgba(169, 161, 195, 0.6);
-  border: 1px solid rgba(140, 130, 170, 0.8);
-  color: #322b41;
-  font-weight: 600;
-  padding: 6px 16px;
+  background-color: var(--bg-soft-cream);
+  border: 1px solid var(--border-warm);
+  color: var(--text-ink);
+  font-weight: 400;
+  padding: 10px 20px;
   display: inline-block;
-  border-radius: 6px;
+  border-radius: 8px;
   margin: 0 10px 10px 0;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s, border 0.2s;
-  font-size: 1rem;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px var(--shadow-warm);
   outline: none;
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
 }
 
 .filter-button:hover,
 .tag-button:hover {
-  background-color: rgba(151, 144, 181, 0.75);
-  border-color: rgba(122, 113, 150, 0.85);
-  transform: translateY(-1px);
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08);
+  background-color: var(--highlight-sepia);
+  border-color: var(--accent-burgundy);
+  color: var(--bg-parchment);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-warm);
 }
 
 .filter-button.active,
 .tag-button.active {
-  background-color: rgba(132, 124,162, 0.9);
-  border-color: rgba(107, 98, 135, 0.95);
-  color: #ffffff;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1) inset;
+  background-color: var(--accent-burgundy);
+  border-color: var(--highlight-sepia);
+  color: var(--bg-parchment);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) inset;
   transform: translateY(0);
 }
 
@@ -144,17 +260,20 @@ main.main-content {
   }
 }
 
-/* Bio section styles */
+/* Bio section styling - consistent with other titles */
 .bio-section {
   margin-bottom: 3rem;
 }
 
 .bio-section h2 {
-  font-size: 2rem;
+  font-size: 2.6rem;
   margin-bottom: 1.5rem;
-  font-weight: 600;
+  font-weight: 400 !important;
   position: relative;
-  display: inline-block; /* Better for annotations */
+  display: inline-block;
+  color: var(--text-ink);
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  letter-spacing: 0.3px;
 }
 
 /* Remove the underline when the title has an annotation */
@@ -165,25 +284,29 @@ main.main-content {
   left: 0;
   width: 3rem;
   height: 3px;
-  background: #3498db;
+  background: linear-gradient(90deg, var(--highlight-sepia), var(--accent-burgundy));
 }
 
 .bio-section p {
   margin-bottom: 1.5rem;
-  line-height: 1.8;
-  font-size: 1.05rem;
+  line-height: 1.7;
+  font-size: 1.25rem;
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-weight: 400;
+  color: var(--text-ink);
 }
 
 .styled-link {
   text-decoration: none;
-  color: #3498db;
-  border-bottom: 1px solid transparent;
-  transition: border-bottom 0.2s ease-in-out;
+  color: var(--highlight-sepia);
+  border-bottom: 1px solid var(--border-warm);
+  transition: all 0.2s ease-in-out;
   font-weight: 500;
 }
 
 .styled-link:hover {
-  border-bottom: 1px solid #3498db;
+  color: var(--accent-burgundy);
+  border-bottom: 1px solid var(--accent-burgundy);
 }
 
 .highlight-text {
@@ -200,20 +323,23 @@ main.main-content {
 
 /* Responsive design adjustments */
 @media (max-width: 1024px) {
-  main.main-content {
-    margin-left: 240px; /* Smaller sidebar on medium screens */
-  }
+  /* Adjusted by grid media queries above */
 }
 
 @media (max-width: 768px) {
-  .layout-container {
+  .home-container {
+    padding: 0;
+  }
+  
+  /* Mobile order: Profile -> Content -> Updates */
+  .grid-container {
+    display: flex;
     flex-direction: column;
   }
-
-  main.main-content {
-    margin-left: 0;
-    padding: 1rem;
-  }
+  
+  .col-sidebar-left { order: 1; }
+  .col-main { order: 2; }
+  .col-sidebar-right { order: 3; }
 }
 
 /* Media query for responsive publications layout */
@@ -258,35 +384,157 @@ main.main-content {
 
 .publication-item {
   display: flex;
-  flex-direction: row-reverse; /* Teaser on the right, content on the left */
-  padding: 1.5rem;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  flex-direction: row-reverse;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: var(--bg-soft-cream);
+  box-shadow: 0 6px 20px var(--shadow-warm);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   gap: 1.5rem;
   width: 100%;
   box-sizing: border-box;
+  border: 1px solid var(--border-warm);
+  position: relative;
+}
+
+/* Add subtle paper texture to cards */
+.publication-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 1px 1px, var(--border-warm) 1px, transparent 0);
+  background-size: 15px 15px;
+  opacity: 0.1;
+  border-radius: 12px;
+  pointer-events: none;
 }
 
 .publication-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--shadow-warm);
 }
 
 .publication-content {
   flex: 1;
 }
 
+/* Publications Typography - IBM Plex Serif */
 .publication-item h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+  color: var(--text-ink);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
 }
 
 .authors {
-  font-size: 1rem;
-  color: #555;
+  font-size: 1.05rem;
+  color: var(--text-warm-gray);
   margin-bottom: 0.5rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.venue-shortname {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-ink);
+  background-color: var(--bg-soft-cream);
+  border: 1px solid var(--border-warm);
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  display: inline-block;
+  letter-spacing: 0.02rem;
+  box-shadow: 0 2px 4px var(--shadow-warm);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 1;
+  margin-right: 0.1rem;
+  font-family: var(--font-serif);
+}
+
+.venue-fullname {
+  font-size: 1rem;
+  color: var(--text-warm-gray);
+  display: block;
+  margin: 0 0 0.5rem;
+  font-style: italic;
+  font-family: var(--font-serif);
+}
+
+.abstract {
+  margin: 1rem 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--text-warm-gray);
+  display: none;
+  transition: all 0.3s ease;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+/* Ensure all main section headings use handwritten font consistently */
+h1, h2, h3.section-title, .page-title {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  color: var(--text-ink);
+  font-weight: 400 !important;
+  letter-spacing: 0.3px;
+}
+
+/* Specific styling for different heading levels */
+h1 {
+  font-size: 2.8rem;
+}
+
+h2 {
+  font-size: 2.4rem;
+}
+
+/* Publications content should use serif */
+.publication-item h3,
+.publication-title,
+.venue-shortname,
+.venue-fullname,
+.authors {
+  font-family: var(--font-serif) !important;
+}
+
+/* General headings with handwritten style for titles */
+.page-title, .section h2, .publications-section h2 {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  color: var(--text-ink);
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  font-size: 2.4rem;
+}
+
+/* Force navbar and navigation fonts */
+.navbar .logo span,
+nav a,
+.navLink {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-weight: 400 !important;
+}
+
+/* Force sidebar title fonts */
+.name,
+.sectionTitle {
+  font-family: 'Fredoka One', 'Patrick Hand', cursive !important;
+  font-weight: 400 !important;
+}
+
+/* Keep filter buttons with handwritten style */
+.filter-button,
+.tag-button {
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
 }
 
 /* Removed .venue class as it's no longer needed */
@@ -868,18 +1116,16 @@ main.main-content {
   }
 }
 
-/* Home page publications section */
-.publications-section {
-  margin-top: 4rem;
-  margin-bottom: 3rem;
-}
-
+/* Publications section styling */
 .publications-section h2 {
-  font-size: 2rem;
+  font-size: 2.4rem;
   margin-bottom: 2rem;
-  font-weight: 600;
+  font-weight: 400 !important;
   position: relative;
-  display: inline-block; /* Better for annotations */
+  display: inline-block;
+  color: var(--text-ink);
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  letter-spacing: 0.3px;
 }
 
 /* Remove the underline when the title has an annotation */
@@ -890,7 +1136,7 @@ main.main-content {
   left: 0;
   width: 3rem;
   height: 3px;
-  background: #3498db;
+  background: linear-gradient(90deg, var(--highlight-sepia), var(--accent-burgundy));
 }
 
 .conference-papers-list {
@@ -925,6 +1171,26 @@ main.main-content {
   line-height: 1.4;
 }
 
+/* Home page publication cards - keep serif for academic content */
+.featured-publications-container .publication-item h3,
+.featured-publications-container .paper-title-line,
+.featured-publications-container .publication-title {
+  font-family: var(--font-serif) !important;
+}
+
+.featured-publications-container .venue-shortname {
+  font-family: var(--font-serif) !important;
+}
+
+.featured-publications-container .authors {
+  font-family: var(--font-serif) !important;
+}
+
+.featured-publications-container .venue-fullname {
+  font-family: var(--font-serif) !important;
+}
+
+/* View all link styling */
 .section-link {
   margin-top: 2rem;
   text-align: right;
@@ -932,11 +1198,12 @@ main.main-content {
 }
 
 .view-all-link {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  color: #3498db;
+  color: var(--highlight-sepia);
   display: inline-flex;
   align-items: center;
+  font-family: var(--font-handwritten) !important;
 }
 
 .view-all-link:hover {
@@ -1011,41 +1278,38 @@ main.main-content {
   background-size: 6px 6px;
 }
 
-/* Style 2: Light blue highlight with wavy bottom */
+/* Style 2: Light blue highlight with natural irregular shape */
 .brush-style-2::before {
-  background-color: rgba(64, 154, 255, 0.4);
-  clip-path: polygon(
-    0% 0%, 100% 0%, 97% 35%, 94% 45%, 98% 65%, 
-    100% 90%, 88% 100%, 75% 95%, 50% 100%, 
-    25% 95%, 10% 100%, 0% 80%, 5% 60%, 
-    2% 30%, 5% 15%
+  background-color: rgba(64, 154, 255, 0.35);
+  border-radius: 65% 35% 45% 55% / 40% 70% 30% 60%;
+  transform: skew(-1deg) rotate(-1.2deg) scaleX(1.05) scaleY(0.95);
+  background-image: radial-gradient(
+    ellipse at 25% 50%,
+    rgba(84, 174, 255, 0.25) 0%, 
+    rgba(64, 154, 255, 0.1) 60%,
+    rgba(84, 174, 255, 0.15) 100%
   );
-  transform: skew(-3deg) rotate(-0.5deg);
-  background-image: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.1) 0%, 
-    rgba(145, 200, 255, 0.2) 20%, 
-    rgba(255, 255, 255, 0.1) 40%, 
-    rgba(145, 200, 255, 0.2) 60%, 
-    rgba(255, 255, 255, 0.1) 100%
-  );
+  height: 68%;
+  top: 16%;
+  left: -0.3em;
+  right: -0.05em;
 }
 
-/* Style 3: Pink/coral highlight with brush-like texture */
+/* Style 3: Coral/red highlight with organic irregular shape */
 .brush-style-3::before {
-  background-color: rgba(255, 127, 106, 0.4);
-  clip-path: polygon(
-    0% 10%, 20% 5%, 40% 0%, 60% 5%, 80% 0%, 100% 10%, 
-    95% 30%, 98% 50%, 95% 70%, 100% 90%, 
-    80% 100%, 60% 95%, 40% 100%, 20% 95%, 0% 90%, 
-    5% 70%, 2% 50%, 5% 30%
-  );
+  background-color: rgba(255, 107, 86, 0.35);
+  border-radius: 55% 45% 60% 40% / 50% 60% 45% 55%;
+  transform: skew(1.5deg) rotate(0.5deg) scaleX(0.98);
   background-image: radial-gradient(
-    circle at top left,
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(255, 127, 106, 0.1) 50%,
+    ellipse at 65% 35%,
+    rgba(255, 127, 106, 0.3) 0%,
+    rgba(255, 107, 86, 0.1) 55%,
     rgba(255, 127, 106, 0.2) 100%
   );
+  height: 70%;
+  top: 15%;
+  left: -0.1em;
+  right: -0.2em;
 }
 
 /* Style 4: Purple highlight with softer edges and paint-like texture */
@@ -1186,4 +1450,10 @@ main.main-content {
     display: flex;
     justify-content: center;
   }
+}
+.layout-wrapper-full {
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }

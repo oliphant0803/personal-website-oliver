@@ -64,3 +64,41 @@
   border-radius: 50%;
   margin-right: 8px;
 }
+
+.map-marker {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.map-marker:hover {
+  transform: scale(1.5);
+  z-index: 100;
+}
+
+.minimal-popup .mapboxgl-popup-content {
+  border-radius: 4px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  font-family: inherit;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.minimal-popup .mapboxgl-popup-close-button {
+  display: none;
+}
+
+.map-popup h4 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.map-popup p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}

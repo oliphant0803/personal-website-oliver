@@ -1,11 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Sidebar.module.css';
-import updatesData from '../data/updates.json';
 
 const Sidebar = () => {
+  const [showChineseName, setShowChineseName] = useState(false);
+  
   // Social links
   const socialLinks = [
     { 
@@ -50,13 +52,21 @@ const Sidebar = () => {
           <circle cx="4" cy="4" r="2" />
         </svg>
       )
+    },
+    { 
+      name: 'CV', 
+      url: '/static/uploads/resume.pdf', 
+      icon: (
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className={styles.socialIcon}>
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14,2 14,8 20,8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10,9 9,9 8,9" />
+        </svg>
+      )
     }
   ];
-
-  // We've removed page links as requested
-
-  // Get the top 3 latest updates
-  const latestUpdates = updatesData.slice(0, 3);
 
   return (
     <div className={styles.sidebar}>
@@ -71,7 +81,23 @@ const Sidebar = () => {
             priority
           />
         </div>
-        <h2 className={styles.name}>Oliver Huang</h2>
+        <h2 className={styles.name}>
+          Oliver Huang
+          <button 
+            className={`${styles.toggleBtn} ${showChineseName ? styles.active : ''}`}
+            onClick={() => setShowChineseName(!showChineseName)}
+            aria-label="Toggle Chinese Name"
+            title="Also known as..."
+          >
+            <span className={styles.toggleIcon}>✦</span>
+          </button>
+        </h2>
+        
+        <div className={`${styles.chineseContainer} ${showChineseName ? styles.show : ''}`}>
+          <h2 className={styles.chineseName} lang="zh">黄冠霖</h2>
+          <p className={styles.chineseNote}>(I also go by my Chinese name)</p>
+        </div>
+
         <p className={styles.title}>MSc Student @ UofT</p>
         <p className={styles.title}>oliver[at]cs[dot]toronto[dot]edu</p>
       </div>
@@ -93,50 +119,6 @@ const Sidebar = () => {
             </span>
           </a>
         ))}
-      </div>
-      
-      {/* Latest Updates */}
-      <div className={styles.latestUpdateSection}>
-        <Link href="/news">
-          <h3 className={styles.sectionTitle}>Latest Updates</h3>
-        </Link>
-        {latestUpdates.map(update => {
-          // Format date: Replace "2025" with "'25", "2024" with "'24", etc.
-          const formattedDate = update.date.replace(/\b20(\d{2})\b/g, "'$1");
-          
-          return (
-            <div className={styles.updateContent} key={update.id}>
-              <p className={styles.updateText}>
-                <span className={styles.updateDate}>{formattedDate}</span>
-                {update.hasPaper ? (
-                  <>
-                    {update.content}
-                    <a 
-                      href={update.paperLink} 
-                      className={styles.paperLink}
-                    >
-                      {update.paperTitle}
-                    </a>
-                    {update.contentAfter}
-                    {update.hasSecondPaper && (
-                      <>
-                        <a 
-                          href={update.secondPaperLink} 
-                          className={styles.paperLink}
-                        >
-                          {update.secondPaperTitle}
-                        </a>
-                        {update.finalContent}
-                      </>
-                    )}
-                  </>
-                ) : (
-                  update.content
-                )}
-              </p>
-            </div>
-          );
-        })}
       </div>
     </div>
   );

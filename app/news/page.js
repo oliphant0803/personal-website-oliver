@@ -1,15 +1,29 @@
 'use client';
 
+import Link from 'next/link';
 import updatesData from '@/data/updates.json';
 
 export default function News() {
   return (
     <div className="page-container">
-      <h1 className="page-title">News & Updates</h1>
+      <h1 className="page-title">
+        <span className="back-container">
+          <Link href="/" className="back-button" aria-label="Back to home" title="Back">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="back-icon">
+              <path d="M15.5 5v14l-11-7z" />
+            </svg>
+            <span className="back-text">Back</span>
+          </Link>
+        </span>
+        <span className="title-text">News & Updates</span>
+        <span className="spacer"></span>
+      </h1>
       
       <div className="news-list">
+        <div className="timeline-line"></div>
         {updatesData.map((item) => (
           <div key={item.id} className="news-item">
+            <div className="timeline-dot"></div>
             <div className="news-date">{item.date}</div>
             <div className="news-content">
               <h3 className="news-title">{item.title || 'Update'}</h3>
@@ -40,80 +54,83 @@ export default function News() {
       </div>
 
       <style jsx>{`
-        .news-item {
-          background: #ffffff;
-          border-radius: 12px;
-          padding: 24px;
-          margin-bottom: 24px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-          border: 1px solid #e5e7eb;
-          transition: all 0.2s ease;
+        .news-list {
+          max-width: 800px;
+          margin: 0 auto;
+          position: relative;
+          padding-left: 20px;
         }
 
-        .news-item:hover {
-          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-          transform: translateY(-2px);
+        .timeline-line {
+          position: absolute;
+          left: 6px;
+          top: 10px;
+          bottom: 10px;
+          width: 2px;
+          background-color: var(--border-warm);
+        }
+
+        .news-item {
+          position: relative;
+          margin-bottom: 40px;
+          padding-left: 25px;
+        }
+
+        .timeline-dot {
+          position: absolute;
+          left: -20px; /* Adjust based on padding of news-list + item */
+          top: 6px;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background-color: var(--bg-parchment);
+          border: 2px solid var(--accent-burgundy);
+          z-index: 2;
         }
 
         .news-date {
-          color: #6b7280;
+          color: var(--text-warm-gray);
+          font-family: var(--font-serif);
           font-size: 14px;
-          font-weight: 500;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          margin-bottom: 8px;
+          font-style: italic;
+          margin-bottom: 6px;
+          display: inline-block;
+          background: transparent;
+        }
+
+        .news-content {
+          color: var(--text-ink);
         }
 
         .news-title {
-          color: #1f2937;
-          font-size: 20px;
-          font-weight: 600;
-          margin: 0 0 12px 0;
+          font-family: var(--font-handwritten);
+          color: var(--text-ink);
+          font-size: 22px;
+          font-weight: 500;
+          margin: 0 0 8px 0;
           line-height: 1.3;
         }
 
         .news-text {
-          color: #374151;
-          font-size: 16px;
-          line-height: 1.6;
+          color: var(--text-ink);
+          font-family: var(--font-serif);
+          font-size: 17px;
+          line-height: 1.7; /* Narrative spacing */
           margin: 0;
         }
 
         .paper-link {
-          color: #2563eb;
+          color: var(--highlight-sepia);
           text-decoration: none;
           font-weight: 600;
-          padding: 2px 4px;
-          border-radius: 4px;
+          border-bottom: 1px solid var(--border-warm);
           transition: all 0.2s ease;
-          display: inline-block;
-          position: relative;
         }
 
         .paper-link:hover {
-          color: #1d4ed8;
-          background-color: #eff6ff;
-          text-decoration: underline;
-        }
-
-        .paper-link:before {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background-color: #2563eb;
-          transition: width 0.3s ease;
-        }
-
-        .paper-link:hover:before {
-          width: 100%;
-        }
-
-        .news-list {
-          max-width: 800px;
-          margin: 0 auto;
+          color: var(--accent-burgundy);
+          border-bottom-color: var(--accent-burgundy);
+          background-color: transparent;
         }
 
         .page-container {
@@ -122,30 +139,96 @@ export default function News() {
 
         .page-title {
           text-align: center;
-          color: #1f2937;
+          color: var(--text-ink);
+          font-family: var(--font-handwritten);
           font-size: 32px;
           font-weight: 700;
-          margin-bottom: 40px;
+          margin-bottom: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          max-width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        
+        .back-container {
+          flex: 1;
+          display: flex;
+          justify-content: flex-start;
+        }
+
+        .title-text {
+          flex: 2;
+          text-align: center;
+        }
+
+        .spacer {
+          flex: 1;
+        }
+        
+        .back-button {
+          display: inline-flex;
+          align-items: center;
+          color: var(--text-light);
+          transition: transform 0.3s ease, color 0.3s ease;
+          line-height: 1;
+          text-decoration: none;
+          font-family: var(--font-handwritten);
+        }
+        
+        .back-button:hover {
+          transform: translateX(-4px);
+          color: var(--accent-burgundy);
+        }
+        
+        .back-icon {
+          width: 24px;
+          height: 24px;
+        }
+        
+        .back-text {
+          font-size: 18px;
+          font-weight: 500;
+          margin-left: 4px;
+        }
+
+        /* Specific adjustments for timeline positioning */
+        .news-list {
+           padding-left: 30px;
+        }
+        
+        .timeline-line {
+           left: 9px; 
+        }
+
+        .timeline-dot {
+           left: -28px;
         }
 
         @media (max-width: 768px) {
           .news-item {
-            padding: 20px;
-            margin-bottom: 20px;
-          }
-          
-          .news-title {
-            font-size: 18px;
-          }
-          
-          .news-text {
-            font-size: 15px;
+            margin-bottom: 30px;
           }
           
           .page-title {
             font-size: 28px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
           }
+
+          .news-title {
+            font-size: 20px;
+          }
+          
+          .news-text {
+            font-size: 16px;
+          }
+        }
+        
+        @media (prefers-color-scheme: dark) {
+           .news-date {
+             color: var(--text-light);
+           }
         }
       `}</style>
     </div>

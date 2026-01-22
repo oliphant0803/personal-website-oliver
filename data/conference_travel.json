@@ -1,6 +1,30 @@
 {
   "travels": [
     {
+      "city": "Vienna, Austria",
+      "lat": 48.2082,
+      "lng": 16.3738,
+      "year": 2025,
+      "conference": "VIS",
+      "dateString": "Nov 02-08 '25"
+    },
+    {
+      "city": "Paphos, Cyprus",
+      "lat": 34.7720,
+      "lng": 32.4297,
+      "year": 2026,
+      "conference": "IUI",
+      "dateString": "Mar 22-27 '26"
+    },
+    {
+      "city": "Barcelona, Spain",
+      "lat": 41.3851,
+      "lng": 2.1734,
+      "year": 2026,
+      "conference": "CHI",
+      "dateString": "Apr 13-17 '26"
+    },
+    {
       "city": "Yokohama, Japan",
       "lat": 35.4437,
       "lng": 139.6380,

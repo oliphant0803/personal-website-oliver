@@ -6,21 +6,25 @@ export default function Home() {
       <section className="bio-section">
         <h2><Annotated text="Bio" imageNumber={2} /></h2>
         <p>
-          I'm <Annotated text="Oliver" imageNumber={1} />, a first-year Master of Science student in Computer Science at the{' '}
+          I am a 2nd year Computer Science Master student at the{' '}
           <a href="https://web.cs.toronto.edu/" target="_blank" rel="noopener noreferrer" className="styled-link">
             University of Toronto
           </a>
-          , where I'm fortunate to be advised by{' '}
-          <a href="https://carolinanobre.com/" target="_blank" rel="noopener noreferrer" className="styled-link">
-            Prof. Carolina Nobre
-          </a>{' '}
-          in the{' '}
+          {' '}in the{' '}
           <a href="https://www.dgp.toronto.edu/" target="_blank" rel="noopener noreferrer" className="styled-link">
             Dynamic Graphics Project (DGP) Lab
           </a>
-          . My research focuses on <strong className="highlight-text">data visualization for decision-making</strong>,{' '}
-          <strong className="highlight-text">human-AI collaboration</strong>, and improving{' '}
-          <strong className="highlight-text">explainable AI (XAI)</strong> in educational contexts.
+          {' '}working with{' '}
+          <a href="https://carolinanobre.com/" target="_blank" rel="noopener noreferrer" className="styled-link">
+            Prof. Carolina Nobre
+          </a>
+          . Overall, I am interested in <Annotated text="human-AI interaction paradigms" imageNumber={3} /> to help{' '}
+          <Annotated text="externalize human thinking" imageNumber={3} /> and preserve <Annotated text="critical thinking" imageNumber={3} />.
+        </p>
+
+        <p>
+          Currently, I am exploring how to <Annotated text="manage abstraction levels" imageNumber={3} /> in representations to preserve independent thinking. I design{' '}
+          <Annotated text="visualization and interaction approaches" imageNumber={3} /> that externalize reasoning and help people navigate between abstraction levels.
         </p>
 
         <p>
@@ -42,14 +46,12 @@ export default function Home() {
         </p>
 
         <p>
-          As a junior researcher, I am actively exploring new opportunities and research topics within my areas of interest. 
-          I'm particularly excited about advancing the use of <strong className="highlight-text">XAI and visualization techniques</strong> to assist 
-          people in making more informed decisions.
+          Please reach out if you think we can collaborate or share ideas! 💡
         </p>
       </section>
 
       <section className="publications-section">
-        <h2><Annotated text="Recent Papers (2025)" imageNumber={3} /></h2>
+        <h2><Annotated text="Recent Papers (2025)" imageNumber={2} /></h2>
         <div className="featured-publications-container">
           <PublicationsList maxCount={3} />
         </div>

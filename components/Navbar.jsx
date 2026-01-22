@@ -21,11 +21,10 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrolled]);
 
-  // Navigation links - updated as requested
+  // Navigation links - creative narrative style
   const navLinks = [
-    { name: 'All Publications', url: '/publications', weight: 20 },
-    { name: 'Travels', url: '/travels', weight: 25 },
-    { name: 'C.V.', url: 'static/uploads/resume.pdf', weight: 30 }
+    { name: 'Publications', url: '/publications' },
+    { name: 'CV', url: 'static/uploads/resume.pdf' }
   ];
 
   return (
@@ -33,33 +32,24 @@ const Navbar = () => {
       <div className={styles.container}>
         <div className={styles.logo}>
           <Link href="/">
-            <span className={styles.logoText}>Oliver's Research Portfolio</span>
+            <span className={styles.logoText}>Oliver Huang</span>
           </Link>
         </div>
 
-        {/* Hamburger menu for mobile */}
-        <button 
-          className={`${styles.mobileMenuBtn} ${menuOpen ? styles.open : ''}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
         {/* Navigation links */}
-        <nav className={`${styles.nav} ${menuOpen ? styles.showMenu : ''}`}>
+        <nav className={styles.nav}>
           <ul className={styles.navList}>
-            {navLinks.map((link) => (
+            {navLinks.map((link, index) => (
               <li key={link.name} className={styles.navItem}>
                 <Link 
                   href={link.url}
                   className={styles.navLink}
-                  onClick={() => setMenuOpen(false)}
                 >
                   {link.name}
                 </Link>
+                {index < navLinks.length - 1 && (
+                  <span className={styles.divider}>•</span>
+                )}
               </li>
             ))}
           </ul>

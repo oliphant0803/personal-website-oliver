@@ -1,9 +1,37 @@
 [
   {
+    "id": 7,
+    "date": "Jan 15, 2026",
+    "title": "Reflexis Accepted to CHI 2026",
+    "content": "My co-authored paper ",
+    "paperTitle": "Reflexis",
+    "paperLink": "https://www.harryye.com/",
+    "contentAfter": ", led by Harry Ye, has been accepted by ",
+    "hasPaper": true,
+    "hasSecondPaper": true,
+    "secondPaperTitle": "CHI 2026",
+    "secondPaperLink": "https://chi2026.acm.org/",
+    "finalContent": "! Congrats Harry!"
+  },
+  {
+    "id": 6,
+    "date": "Jan 5, 2026",
+    "title": "Narrative Scaffolding Accepted to IUI 2026",
+    "content": "My first authored paper ",
+    "paperTitle": "Narrative Scaffolding",
+    "paperLink": "/publications",
+    "contentAfter": " has been accepted by ",
+    "hasPaper": true,
+    "hasSecondPaper": true,
+    "secondPaperTitle": "IUI 2026",
+    "secondPaperLink": "https://iui.acm.org/2026/",
+    "finalContent": "!"
+  },
+  {
     "id": 1,
-    "date": "Nov 2-8, 2025",
-    "title": "Traveling to Vienna for VIS2025",
-    "content": "Traveling to Vienna for IEEE VIS 2025. Presenting ",
+    "date": "Nov 2, 2025",
+    "title": "Vienna VIS2025",
+    "content": "Attending IEEE VIS 2025. Presenting ",
     "paperTitle": "ViStruct",
     "paperLink": "/publications#vistruct",
     "contentAfter": " and ",
@@ -12,6 +40,16 @@
     "finalContent": ".",
     "hasPaper": true,
     "hasSecondPaper": true
+  },
+    {
+    "id": 8,
+    "date": "Oct 15 , 2025",
+    "title": "Program Committee for IUI 2026",
+    "content": "Invited to serve as a Program Committee member for ",
+    "paperTitle": "IUI 2026",
+    "paperLink": "https://iui.acm.org/2026/",
+    "contentAfter": ".",
+    "hasPaper": true
   },
   {
     "id": 2,
@@ -43,7 +81,7 @@
   {
     "id": 5,
     "date": "September 15, 2024",
-    "title": "Joined University of Toronto",
+    "title": "Joined University of Toronto as MSc Student",
     "content": "Accepted University of Toronto's offer for a MSc position in the DGP Lab, excited to work with Prof. Carolina Nobre and the team!",
     "hasPaper": false
   }

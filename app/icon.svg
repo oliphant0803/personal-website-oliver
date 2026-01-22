@@ -1,0 +1,26 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular paper background -->
+  <circle cx="128" cy="128" r="124" fill="#F6F1D1"/>
+
+  <!-- Subtle "handwritten paper" squiggles (very light) -->
+  <path d="M44 90 C82 72, 118 106, 160 86 S210 70, 218 92"
+        fill="none" stroke="#2E2E2E" stroke-opacity="0.07" stroke-width="7" stroke-linecap="round"/>
+  <path d="M40 140 C86 122, 126 160, 172 140 S214 126, 220 146"
+        fill="none" stroke="#2E2E2E" stroke-opacity="0.06" stroke-width="7" stroke-linecap="round"/>
+  <path d="M48 188 C92 170, 134 206, 178 186 S212 176, 216 194"
+        fill="none" stroke="#2E2E2E" stroke-opacity="0.07" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Filled droplet (bold, recognizable) -->
+  <path
+    d="M128 56
+       C110 88, 92 110, 92 136
+       C92 166, 112 186, 128 186
+       C144 186, 164 166, 164 136
+       C164 110, 146 88, 128 56 Z"
+    fill="#4A6FA5"
+  />
+
+  <!-- Optional ripple (kept minimal) -->
+  <ellipse cx="128" cy="204" rx="70" ry="18"
+    fill="none" stroke="#4A6FA5" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+</svg>

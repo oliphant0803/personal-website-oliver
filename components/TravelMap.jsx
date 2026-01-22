@@ -19,7 +19,6 @@ const colorsByType = {
 export default function TravelMap({ locations }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const popupRef = useRef(new mapboxgl.Popup({ offset: 15 }));
   const [mapLoaded, setMapLoaded] = useState(false);
   
   // Initialize map when component mounts
@@ -30,48 +29,30 @@ export default function TravelMap({ locations }) {
     setTimeout(() => {
       try {
         // Double-check that container exists and is visible
-        if (!mapContainer.current) {
-          console.error('Map container element not found');
-          return;
-        }
+        if (!mapContainer.current) return;
         
-        // Check the dimensions of the container
-        const container = mapContainer.current;
-        console.log('Container dimensions:', container.clientWidth, container.clientHeight);
-        
-        if (container.clientWidth === 0 || container.clientHeight === 0) {
-          console.error('Map container has zero width or height');
-          return;
-        }
-
         // Initialize map with a minimal monochrome style
         map.current = new mapboxgl.Map({
           container: mapContainer.current,
           style: 'mapbox://styles/mapbox/light-v11', // Minimal light style
           center: [0, 20], // Center the map on a global view
           zoom: 1.5,
-          attributionControl: true, // Show attribution to ensure proper loading
-          preserveDrawingBuffer: true, // This can help with rendering issues
-          projection: 'mercator', // Use simple mercator projection for a flat map
-          renderWorldCopies: true // Show multiple copies of the world for a better global view
+          attributionControl: true,
+          preserveDrawingBuffer: true,
+          projection: 'mercator',
+          renderWorldCopies: true,
+          maxBounds: [[-180, -60], [180, 80]] // Limit vertical panning to exclude poles
         });
 
         // Add event listener for map load
         map.current.on('load', () => {
-          console.log('Map loaded successfully');
           map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
           setMapLoaded(true);
-          // No fog or 3D effects for a simple flat map
-        });
-        
-        // Add error handling
-        map.current.on('error', (e) => {
-          console.error('Mapbox error:', e);
         });
       } catch (error) {
         console.error('Error initializing map:', error);
       }
-    }, 100); // Small delay to ensure container is ready
+    }, 100); 
     
     // Clean up on unmount
     return () => {
@@ -86,55 +67,86 @@ export default function TravelMap({ locations }) {
   useEffect(() => {
     if (!mapLoaded || !locations.length) return;
     
-    // Clear existing markers
-    const existingMarkers = document.querySelectorAll('.mapboxgl-marker');
-    existingMarkers.forEach(marker => marker.remove());
-    
-    // Add markers for each location
-    locations.forEach(location => {
-      const markerColor = colorsByType[location.type] || '#b0bec5'; // Default muted color
+    // Group locations by type to create layers
+    const locationsByType = {
+      personal: [],
+      conference: [],
+      internship: []
+    };
+
+    locations.forEach(loc => {
+      if (locationsByType[loc.type]) {
+        locationsByType[loc.type].push({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [parseFloat(loc.lng), parseFloat(loc.lat)]
+          },
+          properties: {
+            description: `<h4>${loc.city}</h4><p>Year: ${loc.year}</p>${loc.type === 'conference' ? `<p>Conference: ${loc.conference}</p>` : ''}${loc.type === 'internship' ? `<p>Company: ${loc.company}</p>` : ''}`
+          }
+        });
+      }
+    });
+
+    // Add layers for each type
+    Object.keys(locationsByType).forEach(type => {
+      // Safety check to ensure map still exists
+      if (!map.current) return;
+
+      const layerId = `points-${type}`;
       
-      // Create simple marker element
-      const el = document.createElement('div');
-      el.className = 'map-marker';
-      el.style.backgroundColor = markerColor;
-      el.style.border = '1px solid #ffffff';  // Add white border for better contrast
-      el.style.boxShadow = '0 0 2px rgba(0,0,0,0.1)';  // Subtle shadow
+      // Clean up existing layers if any (though we re-render effectively)
+      if (map.current.getLayer(layerId)) map.current.removeLayer(layerId);
+      if (map.current.getSource(layerId)) map.current.removeSource(layerId);
+
+      if (locationsByType[type].length === 0) return;
+
+      map.current.addSource(layerId, {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: locationsByType[type]
+        }
+      });
+
+      map.current.addLayer({
+        id: layerId,
+        type: 'circle',
+        source: layerId,
+        paint: {
+          'circle-radius': 6,
+          'circle-color': colorsByType[type] || '#546e7a',
+          'circle-stroke-width': 2,
+          'circle-stroke-color': '#ffffff'
+        }
+      });
+
+      // Change cursor on hover
+      map.current.on('mouseenter', layerId, () => {
+        map.current.getCanvas().style.cursor = 'pointer';
+      });
       
-      // Add simple marker to map
-      const marker = new mapboxgl.Marker({
-        element: el,
-        anchor: 'center', // Center alignment for cleaner look
-        scale: 0.8 // Slightly smaller for a more minimal look
-      })
-        .setLngLat([location.lng, location.lat])
-        .setPopup(
-          new mapboxgl.Popup({ offset: 25, className: 'minimal-popup' })
-            .setHTML(`
-              <div class="map-popup">
-                <h4>${location.city}</h4>
-                <p>Year: ${location.year}</p>
-                ${location.type === 'conference' ? `<p>Conference: ${location.conference}</p>` : ''}
-                ${location.type === 'internship' ? `<p>Company: ${location.company}</p>` : ''}
-              </div>
-            `)
-        )
-        .addTo(map.current);
+      map.current.on('mouseleave', layerId, () => {
+        map.current.getCanvas().style.cursor = '';
+      });
+
+      // Add popup on click
+      map.current.on('click', layerId, (e) => {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const description = e.features[0].properties.description;
+
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new mapboxgl.Popup({ className: 'minimal-popup' })
+          .setLngLat(coordinates)
+          .setHTML(description)
+          .addTo(map.current);
+      });
     });
     
-    // Adjust map bounds to fit all markers if needed
-    if (locations.length > 1) {
-      const bounds = new mapboxgl.LngLatBounds();
-      locations.forEach(location => {
-        bounds.extend([location.lng, location.lat]);
-      });
-      
-      map.current.fitBounds(bounds, {
-        padding: 50,
-        maxZoom: 3, // Lower max zoom for a more zoomed-out view
-        duration: 500 // Faster animation
-      });
-    }
   }, [locations, mapLoaded]);
 
   return (
