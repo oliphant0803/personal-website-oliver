@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { RiFilePaperFill } from "react-icons/ri";
+// Import data at the top level
+import publicationsData from '@/data/publications.json';
 import '@/styles/publications.css';
 
 export default function Home() {
@@ -200,10 +202,6 @@ function Annotated({ text, styleOverride }) {
 
 // Component to render a limited list of publications with focus on conference papers
 function PublicationsList({ maxCount, filter = 'All' }) {
-  // Lazy-require client components/data when this runs in the browser
-  const publicationsData = require('@/data/publications.json');
-  const { useState } = require('react');
-
   // Filter papers based on selected topic
   let filteredPapers = publicationsData.publications
     .filter(pub => {
