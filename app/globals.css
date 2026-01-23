@@ -1233,12 +1233,12 @@ nav a,
 }
 
 .view-all-link {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: var(--highlight-sepia);
   display: inline-flex;
   align-items: center;
-  font-family: var(--font-handwritten) !important;
+  font-family: var(--font-body) !important;
 }
 
 .view-all-link:hover {
