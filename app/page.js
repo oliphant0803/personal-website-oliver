@@ -1,10 +1,17 @@
 'use client';
 
+import Link from 'next/link';
+import { useState } from 'react';
+import { RiFilePaperFill } from "react-icons/ri";
+import '@/styles/publications.css';
+
 export default function Home() {
+  const [activeFilter, setActiveFilter] = useState('All');
+
   return (
     <div className="home-container">
       <section className="bio-section">
-        <h2><Annotated text="Bio" imageNumber={2} /></h2>
+        <h2><Annotated text="Bio" styleOverride={2} /></h2>
         <p>
           I am a 2nd year Computer Science Master student at the{' '}
           <a href="https://web.cs.toronto.edu/" target="_blank" rel="noopener noreferrer" className="styled-link">
@@ -12,19 +19,17 @@ export default function Home() {
           </a>
           {' '}in the{' '}
           <a href="https://www.dgp.toronto.edu/" target="_blank" rel="noopener noreferrer" className="styled-link">
-            Dynamic Graphics Project (DGP) Lab
+            Dynamic Graphics Project (DGP) Group
           </a>
           {' '}working with{' '}
           <a href="https://carolinanobre.com/" target="_blank" rel="noopener noreferrer" className="styled-link">
             Prof. Carolina Nobre
           </a>
-          . Overall, I am interested in <Annotated text="human-AI interaction paradigms" imageNumber={3} /> to help{' '}
-          <Annotated text="externalize human thinking" imageNumber={3} /> and preserve <Annotated text="critical thinking" imageNumber={3} />.
+          . Overall, I am interested in human-AI interaction paradigms to help <Annotated text="externalize human thinking" imageNumber={3} /> and <Annotated text="preserve critical thinking" imageNumber={5} />.
         </p>
 
         <p>
-          Currently, I am exploring how to <Annotated text="manage abstraction levels" imageNumber={3} /> in representations to preserve independent thinking. I design{' '}
-          <Annotated text="visualization and interaction approaches" imageNumber={3} /> that externalize reasoning and help people navigate between abstraction levels.
+          Currently, I am exploring how to <Annotated text="manage abstraction levels" imageNumber={4} /> in representations to preserve independent thinking. I design visualization and interaction approaches that <Annotated text="externalize reasoning" imageNumber={2} /> and help people <Annotated text="navigate between abstraction levels" imageNumber={6} />.
         </p>
 
         <p>
@@ -41,8 +46,8 @@ export default function Home() {
             Prof. Carolina Nobre
           </a>
           . During this time, I led the design and development of{' '}
-          <strong className="highlight-text">generative AI tools for computer science education</strong> and contributed to{' '}
-          <strong className="highlight-text">novel time-series data visualizations</strong>.
+          <strong className="highlight-text">GenAI tools for CS Education</strong> and contributed to{' '}
+          <strong className="highlight-text">novel time-series visualizations</strong>.
         </p>
 
         <p>
@@ -51,9 +56,36 @@ export default function Home() {
       </section>
 
       <section className="publications-section">
-        <h2><Annotated text="Recent Papers (2025)" imageNumber={2} /></h2>
+        <Link href="/publications" className="section-title-link">
+          <h2>
+            <Annotated text="Selected Publications" styleOverride={2} />
+            <svg viewBox="0 0 24 24" fill="currentColor" className="section-link-icon">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </h2>
+        </Link>
+        
+        <p className="publications-intro">
+          My research has been published in leading human-computer interaction (CHI, IUI, VL/HCC) and top-tier visualization (VIS, EuroVis) conferences.
+        </p>
+
+        <div className="filter-container">
+          <span className="filter-label">Filter by topic:</span>
+          <div className="filter-buttons">
+            {['All', 'Human-AI Interaction', 'Education', 'Visualization Literacy', 'Data-driven Sensemaking', 'Long-form Text', 'Abstraction Navigation'].map(topic => (
+              <button
+                key={topic}
+                className={`filter-btn ${activeFilter === topic ? 'active' : ''}`}
+                onClick={() => setActiveFilter(topic)}
+              >
+                {topic}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="featured-publications-container">
-          <PublicationsList maxCount={3} />
+          <PublicationsList filter={activeFilter} />
         </div>
         <div className="section-link">
           <a href="/publications" className="styled-link view-all-link">
@@ -61,14 +93,103 @@ export default function Home() {
           </a>
         </div>
       </section>
+
+      <style jsx>{`
+        .section-title-link {
+          text-decoration: none;
+          color: inherit;
+          display: block;
+          width: fit-content;
+        }
+        
+        .section-title-link:hover .section-link-icon {
+          transform: translateX(4px);
+          color: var(--accent-burgundy);
+        }
+        
+        .section-link-icon {
+          display: inline-block;
+          width: 1.8rem;
+          height: 1.8rem;
+          margin-left: 0.5rem;
+          vertical-align: bottom;
+          color: var(--highlight-sepia);
+          transition: transform 0.3s ease, color 0.3s ease;
+          margin-bottom: 0.5rem;
+        }
+
+        .publications-intro {
+          font-family: var(--font-body);
+          font-size: 1.1rem;
+          color: var(--text-warm-gray);
+          margin-bottom: 1.5rem;
+          max-width: 800px;
+          line-height: 1.5;
+        }
+
+        .filter-container {
+          margin-bottom: 2rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+        }
+
+        .filter-label {
+          font-family: var(--font-body);
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: var(--text-ink);
+        }
+
+        .filter-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.8rem;
+        }
+
+        .filter-btn {
+          font-family: var(--font-body);
+          background-color: transparent;
+          border: 2px solid var(--border-warm);
+          border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; /* Hand-drawn feel */
+          padding: 0.4rem 1rem;
+          font-size: 1rem;
+          cursor: pointer;
+          color: var(--text-warm-gray);
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+        .filter-btn:hover {
+          border-color: var(--highlight-sepia);
+          color: var(--text-ink);
+          transform: rotate(-1deg) scale(1.05);
+        }
+
+        .filter-btn.active {
+          background-color: rgba(139, 90, 60, 0.1);
+          border-color: var(--accent-burgundy);
+          color: var(--accent-burgundy);
+          font-weight: 600;
+          transform: rotate(1deg);
+          box-shadow: 2px 2px 0px rgba(139, 90, 60, 0.1);
+        }
+
+        @media (max-width: 768px) {
+          .filter-btn {
+            font-size: 0.9rem;
+            padding: 0.3rem 0.8rem;
+          }
+        }
+      `}</style>
     </div>
   );
 }
 
 // Annotated Text Component
-function Annotated({ text, imageNumber }) {
-  // Convert imageNumber to styleNumber (1-7) to use different highlight styles
-  const styleNumber = ((imageNumber - 1) % 7) + 1;
+function Annotated({ text, styleOverride }) {
+  // Use styleOverride if provided, otherwise default to style 3 (Red/Coral) as requested
+  const styleNumber = styleOverride || 3;
   
   return (
     <span className={`brush-highlight brush-style-${styleNumber}`}>
@@ -78,298 +199,122 @@ function Annotated({ text, imageNumber }) {
 }
 
 // Component to render a limited list of publications with focus on conference papers
-function PublicationsList({ maxCount = 3 }) {
+function PublicationsList({ maxCount, filter = 'All' }) {
   // Lazy-require client components/data when this runs in the browser
-  const PdfTeaser = require('@/components/PdfTeaser').default;
   const publicationsData = require('@/data/publications.json');
+  const { useState } = require('react');
 
-  // Filter all 2025 papers and sort by authorship (first-authored first, then co-authored)
-  const papers2025 = publicationsData.publications
-    .filter(pub => pub.year === 2025)
-    .sort((a, b) => {
-      // Check if Oliver Huang is first author
-      const aIsFirstAuthor = a.authors[0] === "Oliver Huang";
-      const bIsFirstAuthor = b.authors[0] === "Oliver Huang";
+  // Filter papers based on selected topic
+  let filteredPapers = publicationsData.publications
+    .filter(pub => {
+      // Filter out non-selected publications
+      if (pub.selected === 'no') return false;
       
-      // First authored papers come first
-      if (aIsFirstAuthor && !bIsFirstAuthor) return -1;
-      if (!aIsFirstAuthor && bIsFirstAuthor) return 1;
-      
-      // Within same authorship category, sort by venue importance/alphabetical
-      // Special ordering: VIS main paper first, then VIS EA second
-      const venueOrder = {
-        "VIS 2025": 1,
-        "VIS 2025 (Extended Abstract)": 2,
-        "EuroVis 2025": 3, 
-        "IUI 2025": 4,
-        "CHIWORK 2025": 5,
-        "VL/HCC 2025": 6,
-        "arXiv 2025": 7
-      };
-      
-      return (venueOrder[a.venue.shortName] || 999) - (venueOrder[b.venue.shortName] || 999);
+      // Apply filters
+      if (filter === 'All') return true;
+      // Check if tags exist and match filter
+      return pub.tags && pub.tags.includes(filter);
     });
+
+  if (maxCount) {
+    filteredPapers = filteredPapers.slice(0, maxCount); // Take top N if maxCount set
+  }
 
   // Function to format author list with your name bolded
   const formatAuthors = (authors) => {
     return authors.map((author, index) => {
       const isLastAuthor = index === authors.length - 1;
-      const separator = isLastAuthor ? '' : ', ';
+      const isSecondLast = index === authors.length - 2;
+      let separator = ', ';
+      if (isLastAuthor) separator = '';
+      if (isSecondLast) separator = ', and ';
 
       if (author === 'Oliver Huang') {
-        return <span key={index}><strong>{author}</strong>{separator}</span>;
+        return <span key={index}><strong className="my-name">{author}</strong>{separator}</span>;
       } else {
         return <span key={index}>{author}{separator}</span>;
       }
     });
   };
 
-  return (
-    <div className="publications-list">
-      {papers2025.map((pub) => {
-        return (
-          <div className="publication-item" key={pub.id}>
-            <div className="publication-main">
-              <div className="publication-content">
-                <div className="paper-title-line">
-                  <span className="venue-shortname">{pub.venue.shortName}</span>{' '}
-                  <span className="publication-title">{pub.title}</span>
-                </div>
+  const PublicationItem = ({ pub }) => {
+    const [showAbstract, setShowAbstract] = useState(false);
 
-                <div className="venue-fullname">
-                  {pub.venue.fullName}
-                </div>
-
-                <p className="authors">{formatAuthors(pub.authors)}</p>
-
-                <div className="publication-links">
-                  {pub.links?.pdf && (
-                    <a href={pub.links.pdf} target="_blank" rel="noopener noreferrer" className="pub-link pdf-link">PDF</a>
-                  )}
-                  {pub.links?.code && (
-                    <a href={pub.links.code} target="_blank" rel="noopener noreferrer" className="pub-link code-link">Code</a>
-                  )}
-                  {pub.links?.['try-live'] && (
-                    <a href={pub.links['try-live']} target="_blank" rel="noopener noreferrer" className="pub-link try-live-link">Try Live</a>
-                  )}
-                  {pub.links?.presentation && (
-                    <a href={pub.links.presentation} target="_blank" rel="noopener noreferrer" className="pub-link presentation-link">Presentation</a>
-                  )}
-                  {pub.links?.project && (
-                    <a href={pub.links.project} target="_blank" rel="noopener noreferrer" className="pub-link">Project Page</a>
-                  )}
-                  {pub.links?.doi && (
-                    <a href={pub.links.doi} target="_blank" rel="noopener noreferrer" className="pub-link">DOI</a>
-                  )}
-                  {pub.links?.poster && (
-                    <a href={pub.links.poster} target="_blank" rel="noopener noreferrer" className="pub-link presentation-link">Poster</a>
-                  )}
-                </div>
-              </div>
-
-              <div className="publication-right">
-                {pub.links?.pdf && (
-                  <div className="publication-teaser">
-                    <a href={pub.links.pdf} target="_blank" rel="noopener noreferrer" aria-label={`View ${pub.title} PDF`}>
-                      <PdfTeaser 
-                        pdfUrl={pub.links.pdf}
-                        title={pub.title}
-                      />
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
+    return (
+      <div className="paper-entry-container">
+        <div className="paper-thumbnail-section">
+          {pub.teaserImage ? (
+            <img src={pub.teaserImage} alt={`${pub.title} preview`} className="paper-preview-image" /> 
+          ) : (
+            <div className="preview-placeholder"></div>
+          )}
+        </div>
+        
+        <div className="paper-details-section">
+          <div className="paper-venue-info">{pub.venue}</div>
+          <h3 className="paper-heading">
+            {pub.titleShort && <span className="heading-prefix">{pub.titleShort}: </span>}
+            {pub.title}
+          </h3>
+          <div className="paper-author-list">{formatAuthors(pub.authors)}</div>
+          
+          <div className="paper-action-links">
+            <button 
+              className="action-link-button" 
+              onClick={() => setShowAbstract(!showAbstract)}
+            >
+              <span className="link-icon">✎</span> ABS
+            </button>
+            {pub.links?.arxiv && (
+              <a 
+                href={pub.links.arxiv} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="action-link-button"
+              >
+                <span className="link-icon">↗</span> ARXIV
+              </a>
+            )}
+            {pub.links?.demo && (
+              <a 
+                href={pub.links.demo} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="action-link-button"
+              >
+                <span className="link-icon">▶</span> DEMO
+              </a>
+            )}
+            {pub.links?.poster && (
+              <a 
+                href={pub.links.poster} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="action-link-button"
+              >
+                <span className="link-icon"><RiFilePaperFill /></span> POSTER
+              </a>
+            )}
+            {/* Add other links if they exist */}
           </div>
-        );
-      })}
 
-      <style jsx>{`
-        .publication-item {
-          display: flex;
-          flex-direction: column;
-          padding: 25px;
-          margin-bottom: 0px;
-          background: white;
-          border-radius: 12px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-          transition: all 0.3s ease;
-          scroll-margin-top: 80px;
-          border: 1px solid #e5e7eb;
-        }
+          {showAbstract && pub.links?.abs && (
+            <div className="paper-summary-text">
+              {pub.links.abs}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
 
-        .publication-item:hover {
-          box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-          transform: translateY(-2px);
-        }
-
-        .publication-main {
-          display: flex;
-          gap: 20px;
-        }
-
-        .publication-content {
-          flex: 1;
-          min-width: 0;
-        }
-
-        .publication-right {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 12px;
-          width: 180px;
-          flex-shrink: 0;
-        }
-
-        .paper-title-line {
-          font-size: 1.25rem;
-          font-weight: 600;
-          line-height: 1.4;
-          margin-bottom: 10px;
-          color: #1f2937;
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-        }
-
-        .publication-title {
-          color: #1f2937;
-          font-weight: 600;
-        }
-
-        .venue-shortname {
-          background: #1976d2;
-          color: white;
-          padding: 6px 12px;
-          border-radius: 8px;
-          font-size: 1.25rem;
-          font-weight: 600;
-          margin-right: 12px;
-        }
-
-        .venue-fullname {
-          font-size: 1rem;
-          color: #6b7280;
-          margin-bottom: 8px;
-          font-style: italic;
-        }
-
-        .authors {
-          font-size: 0.95rem;
-          color: #4b5563;
-          margin-bottom: 15px;
-          line-height: 1.4;
-        }
-
-        .publication-links {
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
-        }
-
-        .pub-link {
-          padding: 0.35rem 0.75rem;
-          border-radius: 5px;
-          background-color: rgba(240, 240, 240, 0.7);
-          color: #555;
-          font-size: 0.9rem;
-          font-weight: 500;
-          transition: all 0.2s ease;
-          margin-right: 0.5rem;
-          margin-bottom: 0.5rem;
-          display: inline-block;
-          text-decoration: none;
-        }
-
-        .pub-link:hover {
-          background-color: rgba(220, 220, 220, 0.9);
-          color: #333;
-        }
-
-        .pdf-link {
-          background-color: rgba(244, 67, 54, 0.15);
-          color: #d32f2f;
-          border: 1px solid rgba(244, 67, 54, 0.3);
-        }
-
-        .pdf-link:hover {
-          background-color: rgba(244, 67, 54, 0.25);
-          color: #b71c1c;
-        }
-
-        .code-link {
-          background-color: rgba(156, 39, 176, 0.15);
-          color: #7b1fa2;
-          border: 1px solid rgba(156, 39, 176, 0.3);
-        }
-
-        .code-link:hover {
-          background-color: rgba(156, 39, 176, 0.25);
-          color: #4a148c;
-        }
-
-        .try-live-link {
-          background-color: rgba(76, 175, 80, 0.15);
-          color: #2e7d32;
-          border: 1px solid rgba(76, 175, 80, 0.3);
-        }
-
-        .try-live-link:hover {
-          background-color: rgba(76, 175, 80, 0.25);
-          color: #1b5e20;
-        }
-
-        .presentation-link {
-          background-color: rgba(33, 150, 243, 0.15);
-          color: #1976d2;
-          border: 1px solid rgba(33, 150, 243, 0.3);
-        }
-
-        .presentation-link:hover {
-          background-color: rgba(33, 150, 243, 0.25);
-          color: #0d47a1;
-        }
-
-        .participants-link {
-          background-color: rgba(156, 39, 176, 0.15);
-          color: #7b1fa2;
-          border: 1px solid rgba(156, 39, 176, 0.3);
-        }
-
-        .participants-link:hover {
-          background-color: rgba(156, 39, 176, 0.25);
-          color: #4a148c;
-        }
-
-        .publication-teaser {
-          width: 180px;
-          height: 240px;
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        @media (max-width: 768px) {
-          .publication-main {
-            flex-direction: column;
-            gap: 15px;
-          }
-
-          .publication-right {
-            flex-direction: row;
-            justify-content: center;
-            width: 100%;
-            gap: 20px;
-          }
-
-          .publication-teaser {
-            width: 120px;
-            height: 160px;
-          }
-        }
-      `}</style>
+  return (
+    <div className="publications-list-new">
+      {filteredPapers.map((pub) => (
+        <div key={pub.id} className="pub-item-wrapper">
+           <PublicationItem pub={pub} />
+        </div>
+      ))}
     </div>
   );
 }

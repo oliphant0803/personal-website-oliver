@@ -9,9 +9,7 @@ export default function News() {
       <h1 className="page-title">
         <span className="back-container">
           <Link href="/" className="back-button" aria-label="Back to home" title="Back">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="back-icon">
-              <path d="M15.5 5v14l-11-7z" />
-            </svg>
+            <span className="back-arrow">◀</span>
             <span className="back-text">Back</span>
           </Link>
         </span>
@@ -40,6 +38,14 @@ export default function News() {
                         <a href={item.secondPaperLink} className="paper-link">
                           {item.secondPaperTitle}
                         </a>
+                        {item.hasThirdPaper ? (
+                          <>
+                            {item.contentAfterSecond}
+                            <a href={item.thirdPaperLink} className="paper-link">
+                              {item.thirdPaperTitle}
+                            </a>
+                          </>
+                        ) : null}
                         {item.finalContent}
                       </>
                     )}
@@ -174,7 +180,7 @@ export default function News() {
           transition: transform 0.3s ease, color 0.3s ease;
           line-height: 1;
           text-decoration: none;
-          font-family: var(--font-handwritten);
+          font-family: var(--font-body);
         }
         
         .back-button:hover {
@@ -182,13 +188,13 @@ export default function News() {
           color: var(--accent-burgundy);
         }
         
-        .back-icon {
-          width: 24px;
-          height: 24px;
+        .back-arrow {
+          font-size: 1.5rem;
+          margin-bottom: 2px;
         }
         
         .back-text {
-          font-size: 18px;
+          font-size: 1.2rem;
           font-weight: 500;
           margin-left: 4px;
         }

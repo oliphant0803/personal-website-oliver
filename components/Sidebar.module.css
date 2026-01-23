@@ -1,9 +1,5 @@
 .sidebar {
-  position: sticky;
-  top: 2rem;
   width: 100%;
-  max-height: calc(100vh - 4rem);
-  overflow-y: auto;
   padding: 1rem 0.5rem;
   display: flex;
   flex-direction: column;
@@ -90,7 +86,7 @@
 }
 
 .chineseName {
-  font-size: 2.4rem; /* Slightly larger for calligraphy visibility */
+  font-size: 1.5rem; /* Slightly larger for calligraphy visibility */
   font-weight: 400;
   color: var(--text-ink);
   margin-bottom: 0.2rem;
@@ -103,17 +99,17 @@
   font-size: 0.75rem;
   color: var(--text-warm-gray);
   font-style: italic;
-  font-family: 'IBM Plex Serif', serif;
+  font-family: var(--font-serif);
   margin: 0;
 }
 
 .name {
-  font-size: 3.2rem;
+  font-size: 2.2rem;
   font-weight: 700 !important;
   margin-bottom: 0.5rem;
   text-align: left;
   color: var(--text-ink);
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-serif) !important;
   letter-spacing: 0.5px;
   line-height: 1.1;
   display: flex;
@@ -126,7 +122,7 @@
   color: var(--text-warm-gray);
   margin-bottom: 0.5rem;
   text-align: left;
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-serif) !important;
   font-weight: 500 !important;
   letter-spacing: 0.5px;
   font-size: 1.25rem;
@@ -151,7 +147,7 @@
   color: var(--text-ink);
   font-weight: 400 !important;
   transition: all 0.2s ease;
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-serif) !important;
   letter-spacing: 0.1px;
   font-size: 1.05rem;
   border: none;
@@ -188,7 +184,7 @@
   background-color: var(--bg-soft-cream);
   box-shadow: 0 2px 8px var(--shadow-warm);
   border: 1px solid var(--border-warm);
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-serif) !important;
   font-size: 1.1rem;
 }
 
@@ -238,7 +234,7 @@
   color: var(--text-ink);
   border-bottom: none;
   padding-bottom: 0;
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-serif) !important;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: 0.85rem;
@@ -264,7 +260,7 @@
   color: var(--text-warm-gray);
   margin-right: 0.5rem;
   display: block;
-  font-family: 'IBM Plex Serif', serif;
+  font-family: var(--font-serif);
   font-style: italic;
   margin-bottom: 0.2rem;
 }
@@ -272,7 +268,7 @@
 .updateText {
   font-size: 1rem;
   line-height: 1.4;
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
+  font-family: var(--font-serif);
   margin: 0;
   display: block;
   color: var(--text-ink);
@@ -295,7 +291,7 @@
   color: #2b6cb0;
 }
 
-/* Dark mode styles for paper links */
+/* Dark mode disabled
 @media (prefers-color-scheme: dark) {
   .paperLink {
     color: #63b3ed;
@@ -309,7 +305,6 @@
   }
 }
 
-/* Dark mode adjustments for icons */
 @media (prefers-color-scheme: dark) {
   .socialIcon {
     color: var(--text-light);
@@ -327,7 +322,6 @@
   }
 }
 
-/* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .sidebar {
     background-color: transparent;
@@ -387,6 +381,7 @@
     color: #e0e0e0;
   }
 }
+*/
 
 
 /* Responsive design */

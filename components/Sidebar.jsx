@@ -72,17 +72,19 @@ const Sidebar = () => {
     <div className={styles.sidebar}>
       <div className={styles.profileContainer}>
         <div className={styles.imageWrapper}>
-          <Image
-            src="/static/uploads/profile.png" // Update this path to your actual profile image
-            alt="Oliver Huang"
-            width={180}
-            height={180}
-            className={styles.profileImage}
-            priority
-          />
+          <Link href="/" aria-label="Go to home">
+            <Image
+              src="/static/uploads/profile.png" // Update this path to your actual profile image
+              alt="Oliver Huang"
+              width={180}
+              height={180}
+              className={styles.profileImage}
+              priority
+            />
+          </Link>
         </div>
         <h2 className={styles.name}>
-          Oliver Huang
+          <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Oliver Huang</Link>
           <button 
             className={`${styles.toggleBtn} ${showChineseName ? styles.active : ''}`}
             onClick={() => setShowChineseName(!showChineseName)}

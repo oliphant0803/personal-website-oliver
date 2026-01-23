@@ -99,7 +99,7 @@
   }
 }
 
-/* Dark mode */
+/* Dark mode disabled
 @media (prefers-color-scheme: dark) {
   .pdfTeaser {
     background-color: #2d2d2d;
@@ -123,3 +123,4 @@
     border-top-color: #63b3ed;
   }
 }
+*/

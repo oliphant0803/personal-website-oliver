@@ -103,6 +103,17 @@ const UpdatesSidebar = () => {
                         >
                           {update.secondPaperTitle}
                         </a>
+                        {update.hasThirdPaper ? (
+                          <>
+                            {update.contentAfterSecond}
+                            <a 
+                              href={update.thirdPaperLink} 
+                              className={styles.paperLink}
+                            >
+                              {update.thirdPaperTitle}
+                            </a>
+                          </>
+                        ) : null}
                         {update.finalContent}
                       </>
                     )}

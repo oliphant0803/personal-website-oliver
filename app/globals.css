@@ -16,8 +16,8 @@
   /* Typography Variables */
   --font-handwritten: 'Patrick Hand', 'Comic Sans MS', cursive;
   --font-title: 'Fredoka One', 'Patrick Hand', cursive;
-  --font-serif: 'IBM Plex Serif', Georgia, serif;
-  --font-body: 'IBM Plex Serif', Georgia, serif;
+  --font-serif: ui-serif, var(--font-pt-serif), var(--font-noto-serif), Georgia, serif;
+  --font-body: ui-serif, var(--font-pt-serif), var(--font-noto-serif), Georgia, serif;
   
   /* Legacy variables for compatibility */
   --foreground-rgb: 44, 36, 22;
@@ -25,9 +25,9 @@
   --background-end-rgb: 250, 248, 243;
 }
 
+/* Dark mode disabled to force parchment theme
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark Narrative Theme */
     --bg-parchment: #1a1612;
     --bg-soft-cream: #1f1b16;
     --text-ink: #e8e2d4;
@@ -41,12 +41,12 @@
     --border-warm: rgba(196, 132, 90, 0.3);
     --shadow-warm: rgba(232, 226, 212, 0.1);
     
-    /* Legacy variables */
     --foreground-rgb: 232, 226, 212;
     --background-start-rgb: 26, 22, 18;
     --background-end-rgb: 31, 27, 22;
   }
 }
+*/
 
 * {
   box-sizing: border-box;
@@ -57,7 +57,7 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  /* overflow-x: hidden; - Temporarily removed to ensure sticky works reliably */
   scroll-behavior: smooth;
 }
 
@@ -133,11 +133,23 @@ a {
   .grid-container {
     /* Fixed sidebars (330px), Fluid center (1fr) */
     grid-template-columns: 330px 1fr 330px;
+    align-items: start; /* Ensure sticky items don't stretch */
   }
   
   .col-sidebar-left {
     grid-column: 1;
-    position: relative; /* Context for sticky child */
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    /* Hide scrollbar for standard browsers */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+  }
+  
+  .col-sidebar-left::-webkit-scrollbar { 
+    display: none; 
   }
   
   .col-main {
@@ -151,7 +163,18 @@ a {
   
   .col-sidebar-right {
     grid-column: 3;
-    position: relative; /* Context for sticky child */
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    /* Hide scrollbar for standard browsers */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+  }
+
+  .col-sidebar-right::-webkit-scrollbar { 
+    display: none; 
   }
 }
 
@@ -159,8 +182,20 @@ a {
 @media (min-width: 768px) and (max-width: 1023px) {
   .grid-container {
     grid-template-columns: 300px 1fr;
+    align-items: start;
   }
-  .col-sidebar-left { grid-column: 1; }
+  .col-sidebar-left { 
+    grid-column: 1;
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .col-sidebar-left::-webkit-scrollbar { display: none; }
+  
   .col-main { grid-column: 2; }
   .col-sidebar-right { 
     grid-column: span 2; /* Push right sidebar to bottom on tablet */
@@ -210,7 +245,7 @@ a {
   font-size: 1.1rem;
   box-shadow: 0 2px 8px var(--shadow-warm);
   outline: none;
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-body) !important;
 }
 
 .filter-button:hover,
@@ -266,13 +301,13 @@ a {
 }
 
 .bio-section h2 {
-  font-size: 2.6rem;
+  font-size: 2rem;
   margin-bottom: 1.5rem;
   font-weight: 400 !important;
   position: relative;
   display: inline-block;
   color: var(--text-ink);
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-serif) !important;
   letter-spacing: 0.3px;
 }
 
@@ -290,8 +325,8 @@ a {
 .bio-section p {
   margin-bottom: 1.5rem;
   line-height: 1.7;
-  font-size: 1.25rem;
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-size: 1.1rem;
+  font-family: var(--font-body) !important;
   font-weight: 400;
   color: var(--text-ink);
 }
@@ -422,7 +457,7 @@ a {
   flex: 1;
 }
 
-/* Publications Typography - IBM Plex Serif */
+/* Publications Typography - Serif */
 .publication-item h3 {
   font-size: 1.5rem;
   margin-bottom: 0.6rem;
@@ -481,9 +516,9 @@ a {
   font-style: italic;
 }
 
-/* Ensure all main section headings use handwritten font consistently */
+/* Ensure all main section headings use serif font consistently */
 h1, h2, h3.section-title, .page-title {
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-serif) !important;
   color: var(--text-ink);
   font-weight: 400 !important;
   letter-spacing: 0.3px;
@@ -507,9 +542,9 @@ h2 {
   font-family: var(--font-serif) !important;
 }
 
-/* General headings with handwritten style for titles */
+/* General headings with serif style for titles */
 .page-title, .section h2, .publications-section h2 {
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-serif) !important;
   color: var(--text-ink);
   font-weight: 400;
   letter-spacing: 0.2px;
@@ -1118,13 +1153,13 @@ nav a,
 
 /* Publications section styling */
 .publications-section h2 {
-  font-size: 2.4rem;
+  font-size: 2rem;
   margin-bottom: 2rem;
   font-weight: 400 !important;
   position: relative;
   display: inline-block;
   color: var(--text-ink);
-  font-family: 'Patrick Hand', 'Comic Sans MS', cursive !important;
+  font-family: var(--font-serif) !important;
   letter-spacing: 0.3px;
 }
 
@@ -1242,6 +1277,7 @@ nav a,
   font-weight: 600;
   display: inline;
   z-index: 1;
+  white-space: nowrap;
 }
 
 /* Base styles for all brush highlights */

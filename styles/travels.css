@@ -96,15 +96,16 @@
   transform: translateY(-50%) translateX(-4px);
 }
 
-.travel-back-icon {
-  width: 20px;
-  height: 20px;
+.back-arrow {
+  font-size: 1.5rem;
   margin-right: 4px;
+  margin-bottom: 2px;
 }
 
 .travel-back-text {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1.2rem;
+  font-family: 'Patrick Hand', 'Comic Sans MS', cursive;
 }
 
 @media (max-width: 768px) {

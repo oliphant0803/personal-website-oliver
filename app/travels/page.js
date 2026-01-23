@@ -81,16 +81,14 @@ export default function TravelsPage() {
     <div className="travels-container">
       <div className="travels-header">
         <Link href="/" className="travel-back-button" aria-label="Back to home">
-          <svg viewBox="0 0 24 24" fill="currentColor" className="travel-back-icon">
-            <path d="M15.5 5v14l-11-7z" />
-          </svg>
+          <span className="back-arrow">◀</span>
           <span className="travel-back-text">Back</span>
         </Link>
 
         <div className="travel-stats-top">
           <span className="stat-item"><strong>{cityCount}</strong> Cities</span>
           <span className="stat-separator">•</span>
-          <span className="stat-item"><strong>{countryCount}</strong> Countries/Regions</span>
+          <span className="stat-item"><strong>{countryCount}</strong> Countries</span>
         </div>
         
         <div className="travel-filters">
