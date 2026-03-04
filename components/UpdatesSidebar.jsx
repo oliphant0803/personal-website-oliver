@@ -1,11 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import styles from './UpdatesSidebar.module.css';
 import updatesData from '../data/updates.json';
 import conferenceTravelData from '../data/conference_travel.json';
 
 const UpdatesSidebar = () => {
+  const [expandedTravel, setExpandedTravel] = useState(null);
+  
   // Get the top 3 latest updates
   const latestUpdates = updatesData.slice(0, 3);
 
@@ -33,7 +36,8 @@ const UpdatesSidebar = () => {
         return 0;
       };
       return getMonthOffset(b.dateString) - getMonthOffset(a.dateString);
-    });
+    })
+    .slice(0, 4); // Keep top 4 travel items as requested
 
   const isTravelPast = (travel) => {
     if (!travel.dateString || !travel.year) return false;
@@ -64,6 +68,45 @@ const UpdatesSidebar = () => {
     eventEnd.setHours(23, 59, 59, 999);
     
     return new Date() > eventEnd;
+  };
+
+  // Parse markdown-style links [text](url) or [text] (url)
+  const parseMarkdownLinks = (text) => {
+    if (!text) return null;
+    
+    const parts = [];
+    let lastIndex = 0;
+    // Handle both [text](url) and [text] (url) formats
+    const linkRegex = /\[([^\]]+)\]\s*\(([^)]+)\)/g;
+    let match;
+    let key = 0;
+
+    while ((match = linkRegex.exec(text)) !== null) {
+      // Add text before link
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      // Add link
+      parts.push(
+        <a 
+          key={`link-${key++}`}
+          href={match[2].trim()} 
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.paperLink}
+        >
+          {match[1]}
+        </a>
+      );
+      lastIndex = match.index + match[0].length;
+    }
+
+    // Add remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    return parts.length > 0 ? parts : text;
   };
 
   return (
@@ -139,6 +182,17 @@ const UpdatesSidebar = () => {
         
         {upcomingTravels.map((travel, index) => {
           const isPast = isTravelPast(travel);
+          const isExpanded = expandedTravel === index;
+          
+          // Build travel description: 
+          // If comment exists, use "comment in city"
+          // Otherwise use "conference year in city"
+          const travelDescription = travel.comment 
+            ? `${travel.comment} in ${travel.city}`
+            : `${travel.conference} ${travel.year} in ${travel.city}`;
+          
+          const hasAdditionalComment = travel['additional-comment'];
+          
           return (
             <div className={styles.travelContent} key={`travel-${index}`}>
               <div className={`${styles.updateText} ${isPast ? styles.pastTravel : ''}`}>
@@ -146,9 +200,23 @@ const UpdatesSidebar = () => {
                   {travel.dateString}
                 </span>
                 <span className={isPast ? styles.strikethrough : ''}>
-                  {travel.conference} {travel.year} in {travel.city}
+                  {travelDescription}
+                  {hasAdditionalComment && (
+                    <button
+                      onClick={() => setExpandedTravel(isExpanded ? null : index)}
+                      className={styles.toggleButton}
+                      aria-label={isExpanded ? "Hide details" : "Show details"}
+                    >
+                      {isExpanded ? '▼' : '▶'}
+                    </button>
+                  )}
                 </span>
               </div>
+              {isExpanded && hasAdditionalComment && (
+                <div className={styles.additionalComment}>
+                  {parseMarkdownLinks(travel['additional-comment'])}
+                </div>
+              )}
             </div>
           );
         })}

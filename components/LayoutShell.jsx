@@ -7,8 +7,9 @@ import UpdatesSidebar from './UpdatesSidebar';
 export default function LayoutShell({ children }) {
   const pathname = usePathname();
   const isTravelsPage = pathname === '/travels';
+  const isUpdatePage = pathname === '/update';
 
-  if (isTravelsPage) {
+  if (isTravelsPage || isUpdatePage) {
     return (
       <div className="layout-wrapper-full">
         {children}

@@ -49,7 +49,7 @@ export default function Home() {
           </a>
           . During this time, I led the design and development of{' '}
           <strong className="highlight-text">GenAI tools for CS Education</strong> and contributed to{' '}
-          <strong className="highlight-text">novel time-series visualizations</strong>.
+          <strong className="highlight-text">interactive time-series visualizations</strong>.
         </p>
 
         <p>

@@ -1,6 +1,15 @@
 {
   "travels": [
     {
+      "city": "Zurich, Switzerland",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "year": 2026,
+      "dateString": "Feb 23-27 '26",
+      "comment": "Visiting ETH Zurich",
+      "additional-comment": "thanks to [Prof April Wang] (https://aprilwang.me/) and [Prof Menna El-Abbasy] (https://el-assady.com/) for hosting me!"
+    },
+    {
       "city": "Vienna, Austria",
       "lat": 48.2082,
       "lng": 16.3738,

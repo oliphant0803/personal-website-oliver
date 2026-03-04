@@ -49,6 +49,33 @@
   text-decoration: line-through;
 }
 
+.toggleButton {
+  background: none;
+  border: none;
+  color: var(--accent-burgundy);
+  cursor: pointer;
+  font-size: 0.7rem;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.3rem;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+
+.toggleButton:hover {
+  color: var(--highlight-sepia);
+  transform: scale(1.1);
+}
+
+.additionalComment {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-warm-gray);
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  line-height: 1.5;
+  font-family: var(--font-serif);
+}
+
 .sectionTitle {
   font-size: 1.4rem;
   font-weight: 400 !important;

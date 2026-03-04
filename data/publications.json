@@ -193,11 +193,11 @@
     },
     {
       "id": "aiattribution",
-      "titleShort": "Which Code Counts as Mine?",
+      "titleShort": "",
       "type": "extended abstract",
       "selected": "no",
-      "title": " Perceptions of AI Attribution in Programming Education",
-      "venue": "CHI 2026",
+      "title": "Exploring Emerging Norms of AI Disclosure in Programming Education",
+      "venue": "CHI 2026 Workshop",
       "authors": [
         "Runlong Ye",
         "Oliver Huang",
@@ -206,6 +206,8 @@
       ],
       "year": 2026,
       "links": {
+        "arxiv": "https://arxiv.org/pdf/2602.04023",
+        "other": "https://criticalaied.netlify.app/",
         "abs": "Generative AI is rapidly transforming computing education, yet norms for attributing AI assistance remain unsettled. While universities emphasize transparency, it is unclear how students actually navigate these ethical decisions when code generation, debugging, and refinement are intertwined. To understand these attribution behaviors, we conducted a study with 94 computer science students, analyzing their perceptions across 102 scenarios varying by assessment type, AI autonomy, and human refinement effort. Our analysis reveals that students’ attribution judgments are not shaped by the type of assignment, but primarily by the mechanics of interaction: the level of AI assistance and the subsequent human effort to refine the AI output. As AI tools become more autonomous, students perceive a sharp decline in their own ownership and learning value, leading to demands for stricter institutional disclosure policies. However, a critical gap emerged between principle and practice. While students believe policies should be based on fairness and contribution, their personal decisions to disclose are often disconnected from these factors, likely driven by risk aversion rather than academic integrity. These findings suggest that the current standard “citation-style” policies are insufficient for programming courses. Rather than simply policing whether a tool was used, we propose a shift toward process-oriented attribution. Effective guidelines should require students to document how they verified and modified AI-generated outputs, transforming attribution from a compliance check into a pedagogical tool that assesses the student’s ability to evaluate and refine code."
       },
       "teaserImage": "/static/paper_image/2026/aiAttribution.png",
