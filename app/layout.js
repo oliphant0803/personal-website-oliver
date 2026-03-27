@@ -21,9 +21,34 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Patrick+Hand:wght@400&family=Shadows+Into+Light&family=Fredoka+One:wght@400&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&display=swap" 
-          rel="stylesheet" 
+        <link
+          href="https://fonts.googleapis.com/css2?family=Patrick+Hand:wght@400&family=Shadows+Into+Light&family=Fredoka+One:wght@400&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&display=swap"
+          rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Oliver Huang",
+              "url": "https://www.oliver-huang.com/",
+              "affiliation": [
+                {
+                  "@type": "EducationalOrganization",
+                  "name": "University of Toronto"
+                }
+              ],
+              "jobTitle": "HCI Researcher",
+              "alumniOf": "University of Toronto",
+              "sameAs": [
+                "https://scholar.google.com/citations?user=1upDPnEAAAAJ&hl=en",
+                "https://ca.linkedin.com",
+                "https://orcid.org",
+                "https://github.com"
+              ]
+            })
+          }}
         />
       </head>
       <body className={ibmPlexSerif.className} suppressHydrationWarning={true}>
