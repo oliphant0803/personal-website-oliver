@@ -94,6 +94,47 @@
   box-shadow: 0 4px 12px rgba(157, 68, 68, 0.25);
 }
 
+.navLinkWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  white-space: nowrap;
+  background: var(--text-ink);
+  color: var(--bg-soft-cream);
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(139, 90, 60, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 1100;
+}
+
+.tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--text-ink);
+}
+
+.navLinkWrapper:hover .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 .divider {
   color: var(--highlight-sepia);
   font-size: 1.8rem;

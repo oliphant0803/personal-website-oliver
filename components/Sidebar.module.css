@@ -25,8 +25,23 @@
   border-radius: 50%; /* Circle profile */
   overflow: hidden;
   margin-bottom: 1.5rem;
-  border: 1px solid var(--border-warm);
   position: relative;
+}
+
+/* Soft gradient ring that feathers the photo edge into the page,
+   so the studio backdrop dissolves into the cream background. */
+.imageWrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 45%,
+    transparent 58%,
+    rgba(250, 248, 243, 0.35) 80%,
+    var(--bg-soft-cream) 100%
+  );
 }
 
 .profileImage {
@@ -45,6 +60,13 @@
   background-color: transparent;
 }
 
+/* Same lively effect whether the star is hovered or toggled on (clicked) */
+.toggleBtn:hover,
+.toggleBtn.active {
+  transform: rotate(15deg) scale(1.1);
+  color: var(--accent-burgundy);
+}
+
 .toggleBtn {
   background: none;
   border: none;
@@ -59,11 +81,6 @@
   transition: all 0.3s ease;
   position: relative;
   top: -4px;
-}
-
-.toggleBtn:hover {
-  transform: rotate(15deg) scale(1.1);
-  color: var(--accent-burgundy);
 }
 
 .toggleIcon {
@@ -153,6 +170,24 @@
   border: none;
   background-color: transparent;
   margin-left: -0.5rem; /* Align icon with text visually */
+  position: relative;
+}
+
+.socialTooltip {
+  white-space: nowrap;
+  color: var(--text-light);
+  font-family: var(--font-serif);
+  font-size: 0.7rem;
+  font-style: italic;
+  letter-spacing: 0.2px;
+  margin-left: 0.4rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.socialLink:hover .socialTooltip {
+  opacity: 0.75;
 }
 
 .socialLink:hover {

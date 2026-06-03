@@ -1,6 +1,15 @@
 {
   "travels": [
     {
+      "city": "Shanghai, China",
+      "lat": 31.1755,
+      "lng": 121.5870,
+      "year": 2026,
+      "dateString": "May 19 '26",
+      "comment": "Visiting ViSeer Lab at ShanghaiTech",
+      "additional-comment": "thanks to [Quan Li](https://faculty.sist.shanghaitech.edu.cn/liquan/) for hosting!"
+    },
+    {
       "city": "Zurich, Switzerland",
       "lat": 47.3769,
       "lng": 8.5417,
@@ -23,7 +32,7 @@
       "lng": 32.4297,
       "year": 2026,
       "conference": "IUI",
-      "dateString": "Mar 22-27 '26"
+      "dateString": "Jul 12-17 '26"
     },
     {
       "city": "Barcelona, Spain",

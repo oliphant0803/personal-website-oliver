@@ -2,6 +2,7 @@
   /* Narrative Theme Colors */
   --bg-parchment: #f7f4e9;
   --bg-soft-cream: #faf8f3;
+  --bg-edge: #efe9d6; /* slightly deeper warm tone for the background vignette edge */
   --text-ink: #2c2416;
   --text-warm-gray: #6b5b47;
   --text-light: #8a7b65;
@@ -63,10 +64,13 @@ body {
 
 body {
   color: var(--text-ink);
-  background: linear-gradient(
-      135deg,
-      var(--bg-parchment) 0%,
-      var(--bg-soft-cream) 100%
+  /* Soft studio vignette to echo the profile photo: brightest at center,
+     easing into a slightly deeper warm tone toward the edges (same palette). */
+  background: radial-gradient(
+      ellipse 120% 100% at 50% 30%,
+      var(--bg-soft-cream) 0%,
+      var(--bg-parchment) 55%,
+      var(--bg-edge) 100%
     );
   font-family: var(--font-body);
   font-size: 16px;

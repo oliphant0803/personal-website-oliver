@@ -21,10 +21,13 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrolled]);
 
+  // Tooltip shown when hovering the CV link
+  const cvUpdated = 'updated Jun 2026';
+
   // Navigation links - creative narrative style
   const navLinks = [
     { name: 'Publications', url: '/publications' },
-    { name: 'CV', url: 'static/uploads/resume.pdf' }
+    { name: 'CV', url: 'static/uploads/resume.pdf', tooltip: cvUpdated }
   ];
 
   return (
@@ -41,12 +44,17 @@ const Navbar = () => {
           <ul className={styles.navList}>
             {navLinks.map((link, index) => (
               <li key={link.name} className={styles.navItem}>
-                <Link 
-                  href={link.url}
-                  className={styles.navLink}
-                >
-                  {link.name}
-                </Link>
+                <span className={styles.navLinkWrapper}>
+                  <Link
+                    href={link.url}
+                    className={styles.navLink}
+                  >
+                    {link.name}
+                  </Link>
+                  {link.tooltip && (
+                    <span className={styles.tooltip}>{link.tooltip}</span>
+                  )}
+                </span>
                 {index < navLinks.length - 1 && (
                   <span className={styles.divider}>•</span>
                 )}

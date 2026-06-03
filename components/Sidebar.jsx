@@ -6,7 +6,8 @@ import Link from 'next/link';
 import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
-  const [showChineseName, setShowChineseName] = useState(false);
+  const [hoverChineseName, setHoverChineseName] = useState(false);
+  const chineseNameVisible = hoverChineseName;
   
   // Social links
   const socialLinks = [
@@ -53,9 +54,10 @@ const Sidebar = () => {
         </svg>
       )
     },
-    { 
-      name: 'CV', 
-      url: '/static/uploads/resume.pdf', 
+    {
+      name: 'CV',
+      url: '/static/uploads/resume.pdf',
+      tooltip: 'updated Jun 2026',
       icon: (
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className={styles.socialIcon}>
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -76,8 +78,9 @@ const Sidebar = () => {
             <Image
               src="/static/uploads/profile.png" // Update this path to your actual profile image
               alt="Oliver Huang"
-              width={180}
-              height={180}
+              width={440}
+              height={440}
+              unoptimized
               className={styles.profileImage}
               priority
             />
@@ -85,17 +88,18 @@ const Sidebar = () => {
         </div>
         <h2 className={styles.name}>
           <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Oliver Huang</Link>
-          <button 
-            className={`${styles.toggleBtn} ${showChineseName ? styles.active : ''}`}
-            onClick={() => setShowChineseName(!showChineseName)}
-            aria-label="Toggle Chinese Name"
+          <button
+            className={styles.toggleBtn}
+            onMouseEnter={() => setHoverChineseName(true)}
+            onMouseLeave={() => setHoverChineseName(false)}
+            aria-label="Show Chinese Name"
             title="Also known as..."
           >
             <span className={styles.toggleIcon}>✦</span>
           </button>
         </h2>
         
-        <div className={`${styles.chineseContainer} ${showChineseName ? styles.show : ''}`}>
+        <div className={`${styles.chineseContainer} ${chineseNameVisible ? styles.show : ''}`}>
           <h2 className={styles.chineseName} lang="zh">黄冠霖</h2>
           <p className={styles.chineseNote}>(I also go by my Chinese name)</p>
         </div>
@@ -119,6 +123,9 @@ const Sidebar = () => {
             <span className={styles.socialName}>
               {link.displayText || link.name}
             </span>
+            {link.tooltip && (
+              <span className={styles.socialTooltip}>{link.tooltip}</span>
+            )}
           </a>
         ))}
       </div>

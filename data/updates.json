@@ -1,5 +1,15 @@
 [
   {
+    "id": 9,
+    "date": "Mar 23, 2026",
+    "title": "Joining ETH Zürich for PhD",
+    "content": "Accepted ETH Zürich's PhD offer. I will be joining the  ",
+    "paperTitle": "PEACH Lab",
+    "paperLink": "https://peachlab.inf.ethz.ch/",
+    "contentAfter": " starting September 2026!",
+    "hasPaper": true
+  },
+  {
     "id": 7,
     "date": "Jan 15, 2026",
     "title": "Reflexis Accepted to CHI 2026",
@@ -21,7 +31,7 @@
     "id": 6,
     "date": "Jan 5, 2026",
     "title": "Narrative Scaffolding Accepted to IUI 2026",
-    "content": "My first authored paper ",
+    "content": "My first-authored paper ",
     "paperTitle": "Narrative Scaffolding",
     "paperLink": "/publications#ns",
     "contentAfter": " has been accepted by ",
