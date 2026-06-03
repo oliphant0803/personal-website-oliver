@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { RiFilePaperFill } from "react-icons/ri";
+import { RiFilePaperFill, RiFilePdfFill, RiSlideshowFill } from "react-icons/ri";
 // Import data at the top level
 import publicationsData from '@/data/publications.json';
 import '@/styles/publications.css';
@@ -64,6 +64,7 @@ export default function Home() {
             <svg viewBox="0 0 24 24" fill="currentColor" className="section-link-icon">
               <path d="M8 5v14l11-7z" />
             </svg>
+            <span className="section-link-label">all publications</span>
           </h2>
         </Link>
         
@@ -74,7 +75,7 @@ export default function Home() {
         <div className="filter-container">
           <span className="filter-label">Filter by topic:</span>
           <div className="filter-buttons">
-            {['All', 'Human-AI Interaction', 'Education', 'Visualization Literacy', 'Data-driven Sensemaking', 'Long-form Text', 'Abstraction Navigation'].map(topic => (
+            {['All', 'Human-AI Interaction', 'Education', 'Visualization Literacy', 'Data-driven Sensemaking', 'Long-form Text'].map(topic => (
               <button
                 key={topic}
                 className={`filter-btn ${activeFilter === topic ? 'active' : ''}`}
@@ -108,7 +109,21 @@ export default function Home() {
           transform: translateX(4px);
           color: var(--accent-burgundy);
         }
-        
+
+        .section-link-label {
+          font-family: var(--font-handwritten);
+          font-size: 0.85rem;
+          color: var(--highlight-sepia);
+          vertical-align: middle;
+          margin-left: 0.1rem;
+          white-space: nowrap;
+          transition: color 0.3s ease;
+        }
+
+        .section-title-link:hover .section-link-label {
+          color: var(--accent-burgundy);
+        }
+
         .section-link-icon {
           display: inline-block;
           width: 1.8rem;
@@ -263,14 +278,14 @@ function PublicationsList({ maxCount, filter = 'All' }) {
             >
               <span className="link-icon">✎</span> ABS
             </button>
-            {pub.links?.arxiv && (
-              <a 
-                href={pub.links.arxiv} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+            {pub.links?.pdf && (
+              <a
+                href={pub.links.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="action-link-button"
               >
-                <span className="link-icon">↗</span> ARXIV
+                <span className="link-icon"><RiFilePdfFill /></span> PDF
               </a>
             )}
             {pub.links?.demo && (
@@ -284,13 +299,23 @@ function PublicationsList({ maxCount, filter = 'All' }) {
               </a>
             )}
             {pub.links?.poster && (
-              <a 
-                href={pub.links.poster} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href={pub.links.poster}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="action-link-button"
               >
                 <span className="link-icon"><RiFilePaperFill /></span> POSTER
+              </a>
+            )}
+            {pub.links?.presentation && (
+              <a
+                href={pub.links.presentation}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="action-link-button"
+              >
+                <span className="link-icon"><RiSlideshowFill /></span> TALK
               </a>
             )}
             {/* Add other links if they exist */}

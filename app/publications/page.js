@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { RiFilePaperFill } from "react-icons/ri";
+import { RiFilePaperFill, RiFilePdfFill, RiSlideshowFill } from "react-icons/ri";
 import publicationsData from '@/data/publications.json';
 import '@/styles/publications.css';
 
@@ -65,14 +65,14 @@ export default function AllPublications() {
             >
               <span className="link-icon">✎</span> ABS
             </button>
-            {pub.links?.arxiv && (
-              <a 
-                href={pub.links.arxiv} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+            {pub.links?.pdf && (
+              <a
+                href={pub.links.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="action-link-button"
               >
-                <span className="link-icon">↗</span> ARXIV
+                <span className="link-icon"><RiFilePdfFill /></span> PDF
               </a>
             )}
             {pub.links?.demo && (
@@ -86,25 +86,24 @@ export default function AllPublications() {
               </a>
             )}
             {pub.links?.poster && (
-              <a 
-                href={pub.links.poster} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href={pub.links.poster}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="action-link-button"
               >
                 <span className="link-icon"><RiFilePaperFill /></span> POSTER
               </a>
             )}
-            {/* Fallback for general PDF if not arxiv */}
-            {pub.links?.pdf && !pub.links.arxiv && (
-               <a 
-               href={pub.links.pdf} 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               className="action-link-button"
-             >
-               <span className="link-icon">↓</span> PDF
-             </a>
+            {pub.links?.presentation && (
+              <a
+                href={pub.links.presentation}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="action-link-button"
+              >
+                <span className="link-icon"><RiSlideshowFill /></span> TALK
+              </a>
             )}
           </div>
 
@@ -150,7 +149,7 @@ export default function AllPublications() {
       <div className="filter-container">
         <span className="filter-label">Filter by topic:</span>
         <div className="filter-buttons">
-          {['All', 'Human-AI Interaction', 'Education', 'Visualization Literacy', 'Data-driven Sensemaking', 'Long-form Text', 'Abstraction Navigation'].map(topic => (
+          {['All', 'Human-AI Interaction', 'Education', 'Visualization Literacy', 'Data-driven Sensemaking', 'Long-form Text'].map(topic => (
             <button
               key={topic}
               className={`filter-btn ${activeFilter === topic ? 'active' : ''}`}

@@ -23,8 +23,8 @@ export async function POST(request) {
       publicationsData.publications[paperIndex].links = {};
     }
     
-    if (links.arxiv) {
-      publicationsData.publications[paperIndex].links.arxiv = links.arxiv;
+    if (links.pdf) {
+      publicationsData.publications[paperIndex].links.pdf = links.pdf;
     }
     if (links.demo) {
       publicationsData.publications[paperIndex].links.demo = links.demo;
