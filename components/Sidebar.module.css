@@ -145,6 +145,17 @@
   font-size: 1.25rem;
 }
 
+.contactInfo {
+  font-size: 0.85rem;
+  color: var(--text-warm-gray);
+  opacity: 0.7;
+  margin: 0 0 0.2rem;
+  text-align: left;
+  font-family: var(--font-body) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.2px;
+}
+
 .socialLinks {
   display: flex;
   flex-direction: column;
@@ -374,7 +385,11 @@
   .title {
     color: #bbb;
   }
-  
+
+  .contactInfo {
+    color: #999;
+  }
+
   .socialLink {
     color: #dedede;
   }

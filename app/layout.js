@@ -33,19 +33,26 @@ export default function RootLayout({ children }) {
               "@type": "Person",
               "name": "Oliver Huang",
               "url": "https://www.oliver-huang.com/",
-              "affiliation": [
+              "image": "https://www.oliver-huang.com/static/uploads/profile.png",
+              "email": "mailto:haohuang@ethz.ch",
+              "jobTitle": "Doctoral Student",
+              "affiliation": {
+                "@type": "CollegeOrUniversity",
+                "name": "ETH Zurich",
+                "url": "https://ethz.ch/"
+              },
+              "alumniOf": [
                 {
-                  "@type": "EducationalOrganization",
-                  "name": "University of Toronto"
+                  "@type": "CollegeOrUniversity",
+                  "name": "University of Toronto",
+                  "url": "https://www.utoronto.ca/"
                 }
               ],
-              "jobTitle": "HCI Researcher",
-              "alumniOf": "University of Toronto",
               "sameAs": [
                 "https://scholar.google.com/citations?user=1upDPnEAAAAJ&hl=en",
-                "https://ca.linkedin.com",
-                "https://orcid.org",
-                "https://github.com"
+                "https://orcid.org/0009-0007-1585-1229",
+                "https://github.com/oliphant0803",
+                "https://www.linkedin.com/in/oliver-huang-2398661aa/"
               ]
             })
           }}

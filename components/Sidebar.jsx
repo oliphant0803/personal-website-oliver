@@ -25,7 +25,7 @@ const Sidebar = () => {
     },
     { 
       name: 'Email', 
-      url: 'mailto:oliver@cs.toronto.edu', 
+      url: 'mailto:haohuang@ethz.ch',
       displayText: 'Email',
       icon: (
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className={styles.socialIcon}>
@@ -104,8 +104,9 @@ const Sidebar = () => {
           <p className={styles.chineseNote}>(I also go by my Chinese name)</p>
         </div>
 
-        <p className={styles.title}>MSc Student @ UofT</p>
-        <p className={styles.title}>oliver[at]cs[dot]toronto[dot]edu</p>
+        <p className={styles.title}>Doctoral Student @ ETHz</p>
+        <p className={styles.contactInfo}>haohuang[at]ethz[dot]ch</p>
+        <p className={styles.contactInfo}>Office: CAB F66</p>
       </div>
 
       {/* Social Links */}

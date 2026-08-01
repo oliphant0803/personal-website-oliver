@@ -15,41 +15,45 @@ export default function Home() {
       <section className="bio-section">
         <h2><Annotated text="Bio" styleOverride={2} /></h2>
         <p>
-          I am a 2nd year Computer Science Master student at the{' '}
+          I am a 1st year PhD student at{' '}
+          <a href="https://ethz.ch/" target="_blank" rel="noopener noreferrer" className="styled-link">
+            ETH Zürich
+          </a>
+          , advised by{' '}
+          <a href="https://www.aprilwang.me/" target="_blank" rel="noopener noreferrer" className="styled-link">
+            Prof. April Wang
+          </a>
+          {' '}in the{' '}
+          <a href="https://peachlab.inf.ethz.ch/" target="_blank" rel="noopener noreferrer" className="styled-link">
+            PEACH Lab
+          </a>
+          , and closely collaborating with{' '}
+          <a href="https://www.majeed.cc/" target="_blank" rel="noopener noreferrer" className="styled-link">
+            Prof. Majeed Kazemi
+          </a>
+          . My research asks how <Annotated text="human-AI interaction techniques" imageNumber={3} /> can support <Annotated text="knowledge construction" imageNumber={5} /> and <Annotated text="mental-model formation" imageNumber={4} /> while <Annotated text="preserving users' agency" imageNumber={6} /> and capacity for independent reasoning.
+        </p>
+
+        <p>
+          Previously, I completed my MSc and BSc in Computer Science at the{' '}
           <a href="https://web.cs.toronto.edu/" target="_blank" rel="noopener noreferrer" className="styled-link">
             University of Toronto
           </a>
-          {' '}in the{' '}
-          <a href="https://www.dgp.toronto.edu/" target="_blank" rel="noopener noreferrer" className="styled-link">
-            Dynamic Graphics Project (DGP) Group
-          </a>
-          {' '}working with{' '}
+          . I was advised by{' '}
           <a href="https://carolinanobre.com/" target="_blank" rel="noopener noreferrer" className="styled-link">
             Prof. Carolina Nobre
           </a>
-          . Overall, I am interested in human-AI interaction paradigms to help <Annotated text="externalize human thinking" imageNumber={3} /> and <Annotated text="preserve critical thinking" imageNumber={5} />.
-        </p>
-
-        <p>
-          Currently, I am exploring how to <Annotated text="manage abstraction levels" imageNumber={4} /> in representations to preserve independent thinking. I design visualization and interaction approaches that <Annotated text="externalize reasoning" imageNumber={2} /> and help people <Annotated text="navigate between abstraction levels" imageNumber={6} />.
-        </p>
-
-        <p>
-          Before beginning my master's, I completed an Honours Bachelor of Science in Computer Science and Statistics at the{' '}
-          <a href="https://www.artsci.utoronto.ca/" target="_blank" rel="noopener noreferrer" className="styled-link">
-            University of Toronto
-          </a>
-          , where I had the privilege of working with{' '}
+          {' '}during my master's and worked with{' '}
           <a href="https://www.tovigrossman.com/" target="_blank" rel="noopener noreferrer" className="styled-link">
             Prof. Tovi Grossman
-          </a>{' '}
-          and{' '}
-          <a href="https://carolinanobre.com/" target="_blank" rel="noopener noreferrer" className="styled-link">
-            Prof. Carolina Nobre
           </a>
-          . During this time, I led the design and development of{' '}
-          <strong className="highlight-text">GenAI tools for CS Education</strong> and contributed to{' '}
-          <strong className="highlight-text">interactive time-series visualizations</strong>.
+          {' '}during my undergraduate studies, both in the{' '}
+          <a href="https://www.dgp.toronto.edu/" target="_blank" rel="noopener noreferrer" className="styled-link">
+            Dynamic Graphics Project (DGP) Lab
+          </a>
+          . My research focused on{' '}
+          <Annotated text="externalizing reasoning" imageNumber={2} /> and supporting{' '}
+          <Annotated text="critical thinking" imageNumber={6} /> through visualization and interaction in decision-making and computer science education.
         </p>
 
         <p>
