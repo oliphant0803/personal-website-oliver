@@ -32,10 +32,17 @@ export default function RootLayout({ children }) {
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Oliver Huang",
+              "description": "Doctoral student at ETH Zurich researching how human-AI techniques can support knowledge construction and mental-model formation while preserving users' agency and capacity for independent reasoning.",
               "url": "https://www.oliver-huang.com/",
               "image": "https://www.oliver-huang.com/static/uploads/profile.png",
               "email": "mailto:haohuang@ethz.ch",
               "jobTitle": "Doctoral Student",
+              "knowsAbout": [
+                "Human-Computer Interaction",
+                "Human-AI Interaction",
+                "Data Visualization",
+                "CS Education"
+              ],
               "affiliation": {
                 "@type": "CollegeOrUniversity",
                 "name": "ETH Zurich",
