@@ -11,8 +11,8 @@ const ibmPlexSerif = IBM_Plex_Serif({
 });
 
 export const metadata = {
-  title: 'Oliver Huang',
-  description: 'Personal website of Oliver Huang',
+  title: 'Oliver (Haoze) Huang',
+  description: 'Personal website of Oliver',
 };
 
 export default function RootLayout({ children }) {
@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              "name": "Oliver Huang",
+              "name": "Oliver (Haoze) Huang",
               "description": "Doctoral student at ETH Zurich researching how human-AI techniques can support knowledge construction and mental-model formation while preserving users' agency and capacity for independent reasoning.",
               "url": "https://www.oliver-huang.com/",
               "image": "https://www.oliver-huang.com/static/uploads/profile.png",

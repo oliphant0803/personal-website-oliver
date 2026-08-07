@@ -87,7 +87,9 @@ const Sidebar = () => {
           </Link>
         </div>
         <h2 className={styles.name}>
-          <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Oliver Huang</Link>
+          <Link href="/" className={styles.nameText} style={{ textDecoration: 'none', color: 'inherit' }}>
+            Oliver <span className={styles.middleName}>Haoze</span> Huang
+          </Link>
           <button
             className={styles.toggleBtn}
             onMouseEnter={() => setHoverChineseName(true)}
@@ -100,7 +102,7 @@ const Sidebar = () => {
         </h2>
         
         <div className={`${styles.chineseContainer} ${chineseNameVisible ? styles.show : ''}`}>
-          <h2 className={styles.chineseName} lang="zh">黄冠霖</h2>
+          <h2 className={styles.chineseName} lang="zh">黄皓泽</h2>
           <p className={styles.chineseNote}>(I also go by my Chinese name)</p>
         </div>
 

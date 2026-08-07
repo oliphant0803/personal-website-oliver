@@ -121,7 +121,7 @@
 }
 
 .name {
-  font-size: 2.2rem;
+  font-size: 1.9rem;
   font-weight: 700 !important;
   margin-bottom: 0.5rem;
   text-align: left;
@@ -130,8 +130,27 @@
   letter-spacing: 0.5px;
   line-height: 1.1;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.nameText {
+  min-width: 0;
+}
+
+.middleName {
+  font-size: 0.65em;
+  font-weight: 400;
+  color: var(--text-warm-gray);
+  opacity: 0.75;
+}
+
+.nameIcon {
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-top: 0.15rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
 }
 
 .title {
@@ -387,6 +406,10 @@
   }
 
   .contactInfo {
+    color: #999;
+  }
+
+  .middleName {
     color: #999;
   }
 

@@ -13,7 +13,10 @@ export default function Home() {
   return (
     <div className="home-container">
       <section className="bio-section">
-        <h2><Annotated text="Bio" styleOverride={2} /></h2>
+        <h2 className="bio-heading">
+          <Annotated text="Bio" styleOverride={2} />
+          <img src="/icon.svg" alt="" aria-hidden="true" className="bio-icon" />
+        </h2>
         <p>
           I am a 1st year PhD student at{' '}
           <a href="https://ethz.ch/" target="_blank" rel="noopener noreferrer" className="styled-link">
@@ -102,6 +105,18 @@ export default function Home() {
       </section>
 
       <style jsx>{`
+        .bio-heading {
+          display: flex;
+          align-items: flex-end;
+          gap: 0.6rem;
+        }
+
+        .bio-icon {
+          width: 3.4rem;
+          height: 3.4rem;
+          margin-bottom: 0.2rem;
+        }
+
         .section-title-link {
           text-decoration: none;
           color: inherit;
@@ -184,7 +199,7 @@ export default function Home() {
         .filter-btn:hover {
           border-color: var(--highlight-sepia);
           color: var(--text-ink);
-          transform: rotate(-1deg) scale(1.05);
+          transfouang: rotate(-1deg) scale(1.05);
         }
 
         .filter-btn.active {
